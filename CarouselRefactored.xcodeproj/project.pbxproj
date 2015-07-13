@@ -15,6 +15,12 @@
 		22BFA34B1B53EC5C003FAE4E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22BFA3491B53EC5C003FAE4E /* LaunchScreen.xib */; };
 		22BFA3571B53EC5C003FAE4E /* CarouselRefactoredTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22BFA3561B53EC5C003FAE4E /* CarouselRefactoredTests.m */; };
 		A67B5718A432350624EBBC08 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5D2D2B32F93DC20A67596EA /* libPods.a */; };
+		ABD4F0EDA7F7CB88A92E0FD9 /* RotationGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = ABD4F41EDE49F8842F7C9EE3 /* RotationGestureRecognizer.m */; };
+		ABD4F42A8764D9B2FB1B98EC /* Grid.m in Sources */ = {isa = PBXBuildFile; fileRef = ABD4F4D6AD5B0965389D3CA7 /* Grid.m */; };
+		ABD4F54B3F34DA33667F1765 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = ABD4F299FCAA18F27AE7B3FB /* Cell.m */; };
+		ABD4F7DA375BDEB0A88DFD43 /* Geometry.m in Sources */ = {isa = PBXBuildFile; fileRef = ABD4F55A141E9062C848077A /* Geometry.m */; };
+		ABD4F803118BF3A42EB7EB9C /* Rotator.m in Sources */ = {isa = PBXBuildFile; fileRef = ABD4FBB060009D34670CD540 /* Rotator.m */; };
+		ABD4FC78B5A594C4282A2E32 /* CarouselView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABD4F37A5F0C15C3C21E94B4 /* CarouselView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +47,18 @@
 		22BFA3501B53EC5C003FAE4E /* CarouselRefactoredTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarouselRefactoredTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22BFA3551B53EC5C003FAE4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22BFA3561B53EC5C003FAE4E /* CarouselRefactoredTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarouselRefactoredTests.m; sourceTree = "<group>"; };
+		ABD4F0D3089C9CC8F9D02D24 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
+		ABD4F1160C25F531823DAF56 /* RotationGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotationGestureRecognizer.h; sourceTree = "<group>"; };
+		ABD4F299FCAA18F27AE7B3FB /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
+		ABD4F2F1B02E71580A84D2D0 /* Rotator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rotator.h; sourceTree = "<group>"; };
+		ABD4F36386D6195ADE43CA56 /* Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Geometry.h; sourceTree = "<group>"; };
+		ABD4F37A5F0C15C3C21E94B4 /* CarouselView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarouselView.m; sourceTree = "<group>"; };
+		ABD4F41EDE49F8842F7C9EE3 /* RotationGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotationGestureRecognizer.m; sourceTree = "<group>"; };
+		ABD4F4D6AD5B0965389D3CA7 /* Grid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Grid.m; sourceTree = "<group>"; };
+		ABD4F55A141E9062C848077A /* Geometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Geometry.m; sourceTree = "<group>"; };
+		ABD4FA63B58E53612A00B175 /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
+		ABD4FBB060009D34670CD540 /* Rotator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Rotator.m; sourceTree = "<group>"; };
+		ABD4FD92EDCD368FDF1B506B /* CarouselView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarouselView.h; sourceTree = "<group>"; };
 		B5D2D2B32F93DC20A67596EA /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2A718887C89B3105EBE4BF1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C9F013B100CA6C5F50D77C59 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -104,6 +122,11 @@
 				22BFA3471B53EC5C003FAE4E /* Images.xcassets */,
 				22BFA3491B53EC5C003FAE4E /* LaunchScreen.xib */,
 				22BFA33A1B53EC5C003FAE4E /* Supporting Files */,
+				ABD4F37A5F0C15C3C21E94B4 /* CarouselView.m */,
+				ABD4FD92EDCD368FDF1B506B /* CarouselView.h */,
+				ABD4F299FCAA18F27AE7B3FB /* Cell.m */,
+				ABD4F0D3089C9CC8F9D02D24 /* Cell.h */,
+				ABD4F25933F46D8BE219345A /* Helpers */,
 			);
 			path = CarouselRefactored;
 			sourceTree = "<group>";
@@ -132,6 +155,21 @@
 				22BFA3551B53EC5C003FAE4E /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		ABD4F25933F46D8BE219345A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				ABD4F1160C25F531823DAF56 /* RotationGestureRecognizer.h */,
+				ABD4F41EDE49F8842F7C9EE3 /* RotationGestureRecognizer.m */,
+				ABD4F2F1B02E71580A84D2D0 /* Rotator.h */,
+				ABD4FBB060009D34670CD540 /* Rotator.m */,
+				ABD4F4D6AD5B0965389D3CA7 /* Grid.m */,
+				ABD4F36386D6195ADE43CA56 /* Geometry.h */,
+				ABD4F55A141E9062C848077A /* Geometry.m */,
+				ABD4FA63B58E53612A00B175 /* Grid.h */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		FD7C14EDDE1DCE1CF24BC6CE /* Pods */ = {
@@ -281,6 +319,12 @@
 				22BFA3431B53EC5C003FAE4E /* ViewController.m in Sources */,
 				22BFA3401B53EC5C003FAE4E /* AppDelegate.m in Sources */,
 				22BFA33D1B53EC5C003FAE4E /* main.m in Sources */,
+				ABD4FC78B5A594C4282A2E32 /* CarouselView.m in Sources */,
+				ABD4F54B3F34DA33667F1765 /* Cell.m in Sources */,
+				ABD4F0EDA7F7CB88A92E0FD9 /* RotationGestureRecognizer.m in Sources */,
+				ABD4F803118BF3A42EB7EB9C /* Rotator.m in Sources */,
+				ABD4F42A8764D9B2FB1B98EC /* Grid.m in Sources */,
+				ABD4F7DA375BDEB0A88DFD43 /* Geometry.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
