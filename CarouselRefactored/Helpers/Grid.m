@@ -9,4 +9,21 @@
 @implementation Grid {
 
 }
+- (void)setFrameToFit:(CGRect)rect {
+
+}
+
+- (void)longTapHeppendOnPoint:(CGPoint)point {
+
+}
+
+- (void)tapHeppendOnPoint:(CGPoint)point {
+
+}
+
+- (CGRect)frameForCellAtIndex:(NSUInteger)index {
+    CGRect result;
+    return result;
+}
+
 @end

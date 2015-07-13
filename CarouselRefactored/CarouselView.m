@@ -4,6 +4,9 @@
 //
 
 #import "CarouselView.h"
+#import "Rotator.h"
+#import "Grid.h"
+#import "RotationGestureRecognizer.h"
 
 
 @implementation CarouselView {
