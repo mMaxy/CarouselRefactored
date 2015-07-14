@@ -160,6 +160,30 @@
     return res;
 }
 
++ (CGFloat)nearestFixedPositionFrom:(CGFloat)currentPosition {
+    CGFloat moveToAngle = currentPosition;
+    if (currentPosition < M_PI_4 / 2 && currentPosition > 0) {
+        moveToAngle = 0;
+    } else if (currentPosition < 3 * M_PI_4 / 2 && currentPosition > M_PI_4 / 2) {
+        moveToAngle = (CGFloat) M_PI_4;
+    } else if (currentPosition < 5 * M_PI_4 / 2 && currentPosition > 3 * M_PI_4 / 2) {
+        moveToAngle = (CGFloat) M_PI_2;
+    } else if (currentPosition < 7 * M_PI_4 / 2 && currentPosition > 5 * M_PI_4 / 2) {
+        moveToAngle = (CGFloat) (3 * M_PI_4);
+    } else if (currentPosition < 9 * M_PI_4 / 2 && currentPosition > 7 * M_PI_4 / 2) {
+        moveToAngle = (CGFloat) M_PI;
+    } else if (currentPosition < 11 * M_PI_4 / 2 && currentPosition > 9 * M_PI_4 / 2) {
+        moveToAngle = (CGFloat) (5 * M_PI_4);
+    } else if (currentPosition < 13 * M_PI_4 / 2 && currentPosition > 11 * M_PI_4 / 2) {
+        moveToAngle = (CGFloat) (3 * M_PI_2);
+    } else if (currentPosition < 15 * M_PI_4 / 2 && currentPosition > 13 * M_PI_4 / 2) {
+        moveToAngle = (CGFloat) (7 * M_PI_4);
+    } else if (currentPosition < 16 * M_PI_4 / 2 && currentPosition > 15 * M_PI_4 / 2) {
+        moveToAngle = (CGFloat) (2 * M_PI);
+    }
+    return moveToAngle;
+}
+
 #pragma mark - Private
 
 + (BOOL)increaseQuarterOfPoint:(CGPoint *)point inFrame:(CGRect *)frame {

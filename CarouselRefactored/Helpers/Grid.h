@@ -29,10 +29,10 @@ struct Borders {
 - 1. Грид - сетка из 9 фреймов, 0 - центральный фрейм, и 8 тех что двигаются, ответсвенность:
 - рассчитать сетку (массив фреймов корректных позиций)
 - заполнить массив ячейками
-- послать лонгтап и тап нужной ячейке
 - определьть корректные позиции ячеек (из массива просто вернуть фрейм)
 */
 @interface Grid : NSObject
+
 
 /**
 * size of a cell
@@ -67,27 +67,48 @@ struct Borders {
 @property (strong, nonatomic) NSArray *cells;
 
 /**
-* frame on which cells must be placed
+* frame to place cells
 */
 @property (assign, nonatomic) CGRect frame;
 
+/**
+* init method
+*/
 - (instancetype)initWithFrame:(CGRect)rect;
 
+/**
+* frame on which cells must be placed
+*/
 -(void)setFrame:(CGRect)rect;
-
-/**
-* Receive point on which long tap happened, sending it to cell. Point must be sent as if there were no offset
-*/
--(void) longTapHeppendOnPoint:(CGPoint)point;
-
-/**
-* Receive point on which tap happened, sending it to cell. Point must be sent as if there were no offset
-*/
--(void) tapHeppendOnPoint:(CGPoint)point;
 
 /**
 * calculating default position for cell at index
 */
 -(CGRect) frameForCellAtIndex:(NSUInteger)index;
+
+/**
+* center of cell in index
+*/
+- (CGPoint)centerForIndex:(NSUInteger)index;
+
+/**
+* returns frame for cell after applying offset
+*/
+- (CGRect)frameForCellAtIndex:(NSUInteger)index withOffset:(CGFloat)offset;
+
+/**
+* moving center
+*/
+- (void)moveCenter:(CGPoint *)center byAngle:(double)angle;
+
+/**
+* index for cell, containing point, after applying offset
+*/
+- (NSUInteger)indexForCellWithPoint:(CGPoint)point withOffset:(CGFloat)offset;
+
+/**
+* index for cell, containing point, with zero offset
+*/
+- (NSUInteger)indexWithPoint:(CGPoint)point;
 
 @end

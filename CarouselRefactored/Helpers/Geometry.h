@@ -44,6 +44,15 @@ typedef NS_ENUM(NSInteger, SpinDirection) {
 */
 + (NSUInteger)quarterOfAngle:(double)angle inFrame:(CGRect)frame;
 
+/**
+* get direction from linear velocity and angle
+*/
 + (SpinDirection)directionWithVelocity:(CGPoint *)velocity fromAngle:(CGFloat)angle;
+
+
+/**
+* get nearest fixed position from offset
+*/
++ (CGFloat)nearestFixedPositionFrom:(CGFloat)currentPosition;
 
 @end

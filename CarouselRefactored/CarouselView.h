@@ -18,12 +18,16 @@
 
 @property (strong, nonatomic) Rotator *rotator;
 @property (strong, nonatomic) Grid *grid;
-@property (strong, nonatomic) RotationGestureRecognizer *rotationRecognizer;
 
 /**
 * Angle, with current offset from initial position
 */
 @property (assign, nonatomic) CGFloat cellsOffset;
+
+/**
+* Maximum offset value
+*/
+@property (assign, nonatomic) CGFloat maxCellsOffset;
 
 /**
 * animatable property
