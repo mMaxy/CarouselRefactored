@@ -30,18 +30,19 @@
 @property (assign, nonatomic) CGFloat maxCellsOffset;
 
 /**
+* cells to place (count of cells must be 9)
+*/
+@property (strong, nonatomic) NSArray *cells;
+
+/**
 * animatable property
 */
-- (POPAnimatableProperty *)cellsOffsetAnimatableProperty;
+- (POPAnimatableProperty *)animatableProperty;
 
 /**
 * Set cells to be shown on view
 */
 -(void) setCells:(NSArray *)cells;
 
-/**
-* cells to place (count of cells must be 9)
-*/
-@property (strong, nonatomic) NSArray *cells;
 
 @end

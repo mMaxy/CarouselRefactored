@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, SpinDirection) {
 /**
 * Rotating point by angle as if it was placed on a circle with frame.width/2 frame.height/2
 */
-+ (CGPoint)rotatedPointFromPoint:(CGPoint)from byAngle:(double)angle inFrame:(CGRect)frame;
++ (CGPoint)rotatedPointFromPoint:(CGPoint)from byAngle:(double)angle onFrame:(CGRect)frame;
 
 /**
 * Getting angle of point as if it was placed on a circle with frame.width/2 frame.height/2

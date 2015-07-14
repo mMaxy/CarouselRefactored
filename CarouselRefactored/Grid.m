@@ -130,8 +130,8 @@
 }
 
 - (void)stopAnimations {
-    [self.rotator stopBounceAnimationOnCarouselView:self];
-    [self.rotator stopDecayAnimationOnCarouselView:self];
+    [self.rotator stopBounceAnimationOnGrid:self];
+    [self.rotator stopDecayAnimationOnGrid:self];
 }
 
 -(void) setFrame:(CGRect)frame {
@@ -167,7 +167,7 @@
     self.cellsOffset = 0.f;
 }
 
-- (POPAnimatableProperty *)cellsOffsetAnimatableProperty {
+- (POPAnimatableProperty *)animatableProperty {
     POPAnimatableProperty *prop = [POPAnimatableProperty propertyWithName:@"com.artolkov.carousel.cellsOffset"
                                                               initializer:^(POPMutableAnimatableProperty *local_prop) {
                                                                   // read value

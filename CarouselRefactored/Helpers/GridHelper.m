@@ -13,7 +13,7 @@
 @property(assign, nonatomic, readonly) CGFloat railsHeightToWidthRelation;
 @property(strong, nonatomic) NSArray *cellFrames;
 
-- (void)countCellSizeAndInsets;
+- (void)setSizes;
 
 @end
 
@@ -22,14 +22,14 @@
 - (void)setFrame:(CGRect)rect {
     _frame = rect;
     _spaceBetweenCells = 5.f;
-    [self countCellSizeAndInsets];
+    [self setSizes];
 
     [self calculateCellsFrames];
 
-    CGFloat railYMin = [self centerForIndex:2].y;
-    CGFloat railYMax = [self centerForIndex:4].y;
-    CGFloat railXMin = [self centerForIndex:0].x;
-    CGFloat railXMax = [self centerForIndex:2].x;
+    CGFloat railYMin = [self centerPointForIndex:2].y;
+    CGFloat railYMax = [self centerPointForIndex:4].y;
+    CGFloat railXMin = [self centerPointForIndex:0].x;
+    CGFloat railXMax = [self centerPointForIndex:2].x;
     _rails = CGRectMake(railXMin, railXMin, railXMax - railXMin, railXMax - railXMin);
     _railsHeightToWidthRelation = (railYMax - railYMin) / (railXMax - railXMin);
 }
@@ -58,7 +58,7 @@
 
 #pragma mark - Private
 
-- (void)countCellSizeAndInsets {
+- (void)setSizes {
     CGFloat screenWidth = CGRectGetWidth(self.frame);
     CGFloat screenHeight = CGRectGetHeight(self.frame);
 
@@ -103,7 +103,7 @@
     _horizontalInset = hi;
 }
 
-- (CGPoint)centerForIndex:(NSUInteger)index {
+- (CGPoint)centerPointForIndex:(NSUInteger)index {
     CGPoint result = CGPointZero;
 
     result.x = [self.cellFrames[index] CGRectValue].origin.x + self.cellSize.width / 2;
@@ -112,7 +112,7 @@
     return result;
 }
 
-- (void)moveCenter:(CGPoint *)center byAngle:(double)angle {
+- (void)moveCellCenter:(CGPoint *)center byAngle:(double)angle {
     CGPoint p = (*center);
     double remain = angle;
 
@@ -122,7 +122,7 @@
     p.y = p.y - self.verticalInset - self.cellSize.height / 2;
     p.y *= 1 / self.railsHeightToWidthRelation;
 
-    CGPoint rotated = [Geometry rotatedPointFromPoint:p byAngle:remain inFrame:f];
+    CGPoint rotated = [Geometry rotatedPointFromPoint:p byAngle:remain onFrame:f];
 
     rotated.y *= self.railsHeightToWidthRelation;
     rotated.x = rotated.x + self.horizontalInset + self.cellSize.width / 2;
@@ -134,9 +134,9 @@
 - (NSUInteger)indexForCellWithPoint:(CGPoint)point withOffset:(CGFloat)offset {
     NSUInteger index = 0;
 
-    CGPoint p = [Geometry rotatedPointFromPoint:point byAngle:(-offset) inFrame:self.frame];
+    CGPoint pointWithoutOffset = [Geometry rotatedPointFromPoint:point byAngle:(-offset) onFrame:self.frame];
 
-    index = [self indexWithPoint:p];
+    index = [self indexWithPoint:pointWithoutOffset];
     return index;
 }
 

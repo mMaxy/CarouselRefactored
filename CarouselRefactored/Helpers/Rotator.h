@@ -31,7 +31,7 @@ _ответсвенность:_
 /**
 * animate inertial spinning on view
 * @param velocity Initial angle velocity, with which animation will start
-* @param carouselView View to animate
+* @param grid Grid to animate
 */
 - (void)decayAnimationWithVelosity:(CGFloat)velocity onCarouselView:(Grid *)carouselView;
 
@@ -48,30 +48,30 @@ _ответсвенность:_
 /**
 * animate bounce on view
 * @param angle Angle to which bounce should be performed
-* @param carouselView View to animate
+* @param grid Grid to animate
 */
 - (void)bounceAnimationToAngle:(CGFloat)angle onCarouselView:(Grid *)carouselView;
 
 /**
 * stopping decay animation
-* @param carouselView Carousel view on which animation should be stopped
+* @param grid Grid on which animation should be stopped
 */
-- (void)stopDecayAnimationOnCarouselView:(Grid *)carouselView;
+- (void)stopDecayAnimationOnGrid:(Grid *)grid;
 
 /**
 * stopping bounce animation
-* @param carouselView Carousel view on which animation should be stopped
+* @param grid Grid view on which animation should be stopped
 */
-- (void)stopBounceAnimationOnCarouselView:(Grid *)carouselView;
+- (void)stopBounceAnimationOnGrid:(Grid *)grid;
 
 /**
 * check is decay animation active on carousel view
 */
-- (BOOL)isDecayAnimationActiveOnCarouselView:(Grid *)carouselView;
+- (BOOL)isDecayAnimationActiveOnGrid:(Grid *)grid;
 
 /**
 * check is bounce animation active on carousel view
 */
-- (BOOL)isBounceAnimationActiveOnCarouselView:(Grid *)carouselView;
+- (BOOL)isBounceAnimationActiveOnGrid:(Grid *)grid;
 
 @end

@@ -9,7 +9,7 @@
 @implementation Geometry
 
 
-+ (CGPoint)rotatedPointFromPoint:(CGPoint)from byAngle:(double)angle inFrame:(CGRect)frame {
++ (CGPoint)rotatedPointFromPoint:(CGPoint)from byAngle:(double)angle onFrame:(CGRect)frame {
     CGPoint result;
 
     double startAngle = [self angleFromPoint:from onFrame:frame];

@@ -43,19 +43,14 @@
 @property(assign, nonatomic) CGRect frame;
 
 /**
-* frame on which cells must be placed
-*/
-- (void)setFrame:(CGRect)rect;
-
-/**
 * center of cell in index
 */
-- (CGPoint)centerForIndex:(NSUInteger)index;
+- (CGPoint)centerPointForIndex:(NSUInteger)index;
 
 /**
 * moving center
 */
-- (void)moveCenter:(CGPoint *)center byAngle:(double)angle;
+- (void)moveCellCenter:(CGPoint *)center byAngle:(double)angle;
 
 /**
 * index for cell, containing point, after applying offset
