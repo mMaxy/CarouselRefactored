@@ -14,7 +14,7 @@
 
 -(void) setFrame:(CGRect)frame {
     [super setFrame:frame];
-    [self.grid setFrameToFit:frame];
+    [self.grid setFrame:frame];
 }
 
 -(void) setCells:(NSArray *)cells {

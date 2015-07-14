@@ -27,6 +27,7 @@ NSString *const kCarouselViewBounceAnimationName = @"CarouselViewDecay";
 
 - (void)rotateCells:(NSArray *)cells onAngle:(CGFloat)angle {
     for (Cell *cell in cells) {
+        //TODO:
         //rotate cell
     }
 }
