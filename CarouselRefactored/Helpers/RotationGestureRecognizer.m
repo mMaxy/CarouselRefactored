@@ -29,46 +29,12 @@
 }
 
 - (SpinDirection)directionOfSpinInView:(UIView *) view {
-    SpinDirection res = SpinNone;
+    SpinDirection res;
     CGPoint velocity = [self velocityInView:view];
     CGPoint point = [self locationInView:view];
     CGFloat angle = [Geometry angleFromPoint:point onFrame:view.frame];
 
-    if (angle >= 0.f && angle < M_PI_4) {
-        if (velocity.y < 0) {
-            res = SpinCounterClockwise;
-        } else if (velocity.y > 0) {
-            res = SpinClockwise;
-        }
-    }
-    if (angle >= M_PI_4 && angle < 3 * M_PI_4) {
-        if (velocity.x < 0) {
-            res = SpinCounterClockwise;
-        } else if (velocity.x > 0) {
-            res = SpinClockwise;
-        }
-    }
-    if (angle >= 3 * M_PI_4 && angle < 5 * M_PI_4) {
-        if (velocity.y > 0) {
-            res = SpinCounterClockwise;
-        } else if (velocity.y < 0) {
-            res = SpinClockwise;
-        }
-    }
-    if (angle >= 5 * M_PI_4 && angle < 7 * M_PI_4) {
-        if (velocity.x > 0) {
-            res = SpinCounterClockwise;
-        } else if (velocity.x < 0) {
-            res = SpinClockwise;
-        }
-    }
-    if (angle >= 7 * M_PI_4 && angle < 8 * M_PI_4) {
-        if (velocity.y < 0) {
-            res = SpinCounterClockwise;
-        } else if (velocity.y > 0) {
-            res = SpinClockwise;
-        }
-    }
+    res = [Geometry directionWithVelocity:&velocity fromAngle:angle];
 
     return res;
 }
@@ -76,7 +42,11 @@
 - (CGFloat)angleVelocityInView:(UIView *)view {
     CGPoint velocity = [self velocityInView:view];
 
-    CGFloat angleVelocity = (CGFloat) sqrtf(velocity.x * velocity.x + velocity.y * velocity.y) / view.frame.size.width / 2;
+    CGPoint point = [self locationInView:view];
+    //radius from center view to touch
+    CGFloat radius = sqrtf((fabsf(point.x)-view.frame.size.width/2) * (fabsf(point.x)-view.frame.size.width/2) + (fabsf(point.y)-view.frame.size.height/2) * (fabsf(point.y)-view.frame.size.height/2));
+
+    CGFloat angleVelocity = (CGFloat) sqrtf(velocity.x * velocity.x + velocity.y * velocity.y) / radius;
 
     SpinDirection direction = [self directionOfSpinInView:view];
     if (direction == SpinClockwise) {

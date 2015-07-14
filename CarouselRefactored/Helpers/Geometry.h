@@ -5,6 +5,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "RotationGestureRecognizer.h"
 
 /**
 * Геометрия - расчет секторов, позиций, скоростей и прочего ответсвенность:
@@ -37,5 +38,7 @@
 * getting quarter of angle in frame. Right Top quarter is 0, counting counterclockwise
 */
 + (NSUInteger)quarterOfAngle:(double)angle inFrame:(CGRect)frame;
+
++ (SpinDirection)directionWithVelocity:(CGPoint *)velocity fromAngle:(CGFloat)angle;
 
 @end

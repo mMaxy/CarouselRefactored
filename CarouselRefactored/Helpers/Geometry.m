@@ -120,6 +120,46 @@
     }
 }
 
++ (SpinDirection)directionWithVelocity:(CGPoint *)velocity fromAngle:(CGFloat)angle {
+    SpinDirection res = SpinNone;
+    if (angle >= 0.f && angle < M_PI_4) {
+        if ((*velocity).y < 0) {
+            res = SpinCounterClockwise;
+        } else if ((*velocity).y > 0) {
+            res = SpinClockwise;
+        }
+    }
+    if (angle >= M_PI_4 && angle < 3 * M_PI_4) {
+        if ((*velocity).x < 0) {
+            res = SpinCounterClockwise;
+        } else if ((*velocity).x > 0) {
+            res = SpinClockwise;
+        }
+    }
+    if (angle >= 3 * M_PI_4 && angle < 5 * M_PI_4) {
+        if ((*velocity).y > 0) {
+            res = SpinCounterClockwise;
+        } else if ((*velocity).y < 0) {
+            res = SpinClockwise;
+        }
+    }
+    if (angle >= 5 * M_PI_4 && angle < 7 * M_PI_4) {
+        if ((*velocity).x > 0) {
+            res = SpinCounterClockwise;
+        } else if ((*velocity).x < 0) {
+            res = SpinClockwise;
+        }
+    }
+    if (angle >= 7 * M_PI_4 && angle < 8 * M_PI_4) {
+        if ((*velocity).y < 0) {
+            res = SpinCounterClockwise;
+        } else if ((*velocity).y > 0) {
+            res = SpinClockwise;
+        }
+    }
+    return res;
+}
+
 #pragma mark - Private
 
 + (BOOL)increaseQuarterOfPoint:(CGPoint *)point inFrame:(CGRect *)frame {
