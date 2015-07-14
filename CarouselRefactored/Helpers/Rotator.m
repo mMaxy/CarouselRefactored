@@ -8,6 +8,7 @@
 #import "Rotator.h"
 #import "CarouselView.h"
 #import "Cell.h"
+#import "Grid.h"
 
 
 @interface Rotator ()
@@ -15,6 +16,10 @@
 @property (assign, nonatomic, readonly) CGFloat decelerationValue;
 @property (assign, nonatomic, readonly) CGFloat velocityOfBounce;
 
+/**
+* returns frame for cell after applying offset
+*/
+- (CGRect)frameForCellAtIndex:(NSUInteger)index withOffset:(CGFloat)offset withGrid:(Grid *)grid;
 @end
 
 @implementation Rotator
@@ -25,10 +30,12 @@ NSString *const kCarouselViewDecayAnimationName = @"CarouselViewDecay";
 NSString *const kCarouselViewBounceAnimationName = @"CarouselViewDecay";
 
 
-- (void)rotateCells:(NSArray *)cells onAngle:(CGFloat)angle {
-    for (Cell *cell in cells) {
-        //TODO:
-        //rotate cell
+- (void)rotateCells:(NSArray *)cells onAngle:(CGFloat)angle withGrid:(Grid *) grid {
+    NSUInteger index = 0;
+    for (UIView *cell in cells) {
+        CGRect frame = [self frameForCellAtIndex:index withOffset:angle withGrid:grid];
+        [cell setFrame:frame];
+        index++;
     }
 }
 
@@ -84,6 +91,22 @@ NSString *const kCarouselViewBounceAnimationName = @"CarouselViewDecay";
 
 - (CGFloat)velocityOfBounce {
     return kCarouselBounceVelocityValue;
+}
+
+#pragma mark - Private
+
+- (CGRect)frameForCellAtIndex:(NSUInteger)index withOffset:(CGFloat)offset withGrid:(Grid *)grid {
+    CGRect frame = CGRectZero;
+
+    frame.size = [grid cellSize];
+    CGPoint center = [grid centerForIndex:index];
+    if (index != 8) {
+        [grid moveCenter:&center byAngle:offset];
+    }
+
+    frame.origin = CGPointMake(center.x - frame.size.width / 2, center.y - frame.size.height / 2);
+
+    return frame;
 }
 
 

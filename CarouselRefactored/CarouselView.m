@@ -142,13 +142,7 @@
 }
 
 - (void)placeCells {
-    NSUInteger index = 0;
-    for (UIView *cell in self.grid.cells) {
-        CGRect frame = [self.grid frameForCellAtIndex:index withOffset:self.cellsOffset];
-        [cell setFrame:frame];
-        [self addSubview:cell];
-        index++;
-    }
+    [self.rotator rotateCells:self.grid.cells onAngle:self.cellsOffset withGrid:self.grid];
 }
 
 - (void)bounceCells {
@@ -169,7 +163,10 @@
 
 -(void) setCells:(NSArray *)cells {
     [self.grid setCells:cells];
-    [self placeCells];
+    for (Cell *cell in cells) {
+        [self addSubview:cell];
+    }
+    self.cellsOffset = 0.f;
 }
 
 - (POPAnimatableProperty *)cellsOffsetAnimatableProperty {

@@ -172,20 +172,6 @@
     return result;
 }
 
-- (CGRect)frameForCellAtIndex:(NSUInteger)index withOffset:(CGFloat)offset {
-    CGRect frame = CGRectZero;
-
-    frame.size = [self cellSize];
-    CGPoint center = [self centerForIndex:index];
-    if (index != 8) {
-        [self moveCenter:&center byAngle:offset];
-    }
-
-    frame.origin = CGPointMake(center.x - frame.size.width / 2, center.y - frame.size.height / 2);
-
-    return frame;
-}
-
 - (void)moveCenter:(CGPoint *)center byAngle:(double)angle {
         CGPoint p = (*center);
         double remain = angle;

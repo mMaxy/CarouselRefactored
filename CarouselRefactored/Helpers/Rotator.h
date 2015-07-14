@@ -8,6 +8,7 @@
 
 @class POPDecayAnimation;
 @class CarouselView;
+@class Grid;
 
 FOUNDATION_EXPORT const float kCarouselDecelerationValue;
 FOUNDATION_EXPORT const float kCarouselBounceVelocityValue;
@@ -28,8 +29,9 @@ _ответсвенность:_
 * rotating cells. For each cell recalculates frame and setting that frame to cell
 *  @param cells Array of cells to spin
 *  @param angle angle from initial position
+*  @grid grid Grid to use
 */
--(void) rotateCells:(NSArray *)cells onAngle:(CGFloat) angle;
+- (void)rotateCells:(NSArray *)cells onAngle:(CGFloat)angle withGrid:(Grid *) grid;
 
 /**
 * animate inertial spinning on view

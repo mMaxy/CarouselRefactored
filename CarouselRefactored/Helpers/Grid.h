@@ -92,11 +92,6 @@ struct Borders {
 - (CGPoint)centerForIndex:(NSUInteger)index;
 
 /**
-* returns frame for cell after applying offset
-*/
-- (CGRect)frameForCellAtIndex:(NSUInteger)index withOffset:(CGFloat)offset;
-
-/**
 * moving center
 */
 - (void)moveCenter:(CGPoint *)center byAngle:(double)angle;
