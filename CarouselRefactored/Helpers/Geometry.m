@@ -6,19 +6,19 @@
 #import "Geometry.h"
 
 
-@implementation Geometry {
+@implementation Geometry
 
-}
-+ (CGPoint)calculateRotatedPointFromPoint:(CGPoint)from byAngle:(double)angle inFrame:(CGRect)frame {
+
++ (CGPoint)rotatedPointFromPoint:(CGPoint)from byAngle:(double)angle inFrame:(CGRect)frame {
     CGPoint result;
     return result;
 }
 
-+ (CGFloat)calculateAngleFromPoint:(CGPoint)point onFrame:(CGRect)frame {
++ (CGFloat)angleFromPoint:(CGPoint)point onFrame:(CGRect)frame {
     return 0;
 }
 
-+ (CGPoint)calculatePointForAngle:(double)angle onFrame:(CGRect)frame {
++ (CGPoint)pointForAngle:(double)angle onFrame:(CGRect)frame {
     CGPoint result;
     return result;
 }

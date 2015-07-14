@@ -12,6 +12,15 @@
 
 @implementation CarouselView
 
+-(void) setFrame:(CGRect)frame {
+    [super setFrame:frame];
+    [self.grid setFrameToFit:frame];
+}
+
+-(void) setCells:(NSArray *)cells {
+    [self.grid setCells:cells];
+}
+
 - (POPAnimatableProperty *)cellsOffsetAnimatableProperty {
     POPAnimatableProperty *prop = [POPAnimatableProperty propertyWithName:@"com.artolkov.carousel.cellsOffset"
                                                               initializer:^(POPMutableAnimatableProperty *local_prop) {
@@ -33,7 +42,7 @@
 #pragma mark - <POPAnimationDelegate>
 
 - (void)pop_animationDidStop:(POPAnimation *)popAnimation finished:(BOOL)finished {
-    if ([popAnimation.name isEqualToString:Rotator ] && finished) {
+    if ([popAnimation.name isEqualToString:self.rotator.decayAnimationName] && finished) {
 //        get nearest fixed angle for cells
 //        start bounce animation to that angle
     }

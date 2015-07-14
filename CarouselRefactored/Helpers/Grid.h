@@ -15,13 +15,31 @@
 */
 @interface Grid : NSObject
 
+/**
+* cells to place (count of cells must be 9)
+*/
 @property (strong, nonatomic) NSArray *cells;
+
+/**
+* frame on which cells must be placed
+*/
 @property (assign, nonatomic) CGRect *frame;
 
 -(void) setFrameToFit:(CGRect)rect;
 
+/**
+* Receive point on which long tap happened, sending it to cell. Point must be sent as if there were no offset
+*/
 -(void) longTapHeppendOnPoint:(CGPoint)point;
+
+/**
+* Receive point on which tap happened, sending it to cell. Point must be sent as if there were no offset
+*/
 -(void) tapHeppendOnPoint:(CGPoint)point;
+
+/**
+* calculating default position for cell at index
+*/
 -(CGRect) frameForCellAtIndex:(NSUInteger)index;
 
 @end

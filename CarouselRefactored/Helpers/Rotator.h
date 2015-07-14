@@ -12,6 +12,7 @@
 FOUNDATION_EXPORT const float kCarouselDecelerationValue;
 FOUNDATION_EXPORT const float kCarouselBounceVelocityValue;
 FOUNDATION_EXPORT NSString *const kCarouselViewDecayAnimationName;
+FOUNDATION_EXPORT NSString *const kCarouselViewBounceAnimationName;
 
 /**
  Вращатель - вращать ячейки, на входе подается массив ячеек
@@ -43,6 +44,11 @@ _ответсвенность:_
 -(NSString *) decayAnimationName;
 
 /**
+* bounce animation name
+*/
+-(NSString *) bounceAnimationName;
+
+/**
 * animate bounce on view
 * @param angle Angle to which bounce should be performed
 * @param carouselView View to animate
@@ -60,5 +66,15 @@ _ответсвенность:_
 * @param carouselView Carousel view on which animation should be stopped
 */
 -(void) stopBounceAnimationOnCarouselView:(CarouselView *)carouselView;
+
+/**
+* check is decay animation active on carousel view
+*/
+-(BOOL) isDecayAnimationActiveOnCarouselView:(CarouselView *)carouselView;
+
+/**
+* check is bounce animation active on carousel view
+*/
+-(BOOL) isBounceAnimationActiveOnCarouselView:(CarouselView *)carouselView;
 
 @end

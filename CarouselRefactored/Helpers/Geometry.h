@@ -11,16 +11,30 @@
 */
 @interface Geometry : NSObject
 
-+ (CGPoint)calculateRotatedPointFromPoint:(CGPoint)from byAngle:(double)angle inFrame:(CGRect)frame;
+/**
+* Rotating point by angle as if it was placed on a circle with frame.width/2 frame.height/2
+*/
++ (CGPoint)rotatedPointFromPoint:(CGPoint)from byAngle:(double)angle inFrame:(CGRect)frame;
 
-+ (CGFloat)calculateAngleFromPoint:(CGPoint)point onFrame:(CGRect)frame;
+/**
+* Getting angle of point as if it was placed on a circle with frame.width/2 frame.height/2
+*/
++ (CGFloat)angleFromPoint:(CGPoint)point onFrame:(CGRect)frame;
 
-+ (CGPoint)calculatePointForAngle:(double)angle onFrame:(CGRect)frame;
+/**
+* Getting point on frame border.
+* Angle between (frame.width, frame.height/2),(frame.width/2, frame.height/2) and that point will result on given angle
+*/
++ (CGPoint)pointForAngle:(double)angle onFrame:(CGRect)frame;
 
-//+ (AVOSpinDirection)spinDirectionForVector:(CGPoint)vector fromPoint:(CGPoint)point onFrame:(CGRect)frame;
-
+/**
+* getting quarter of point in frame. Right Top quarter is 0, counting counterclockwise
+*/
 + (NSUInteger)quarterForPoint:(CGPoint)point inFrame:(CGRect)frame;
 
+/**
+* getting quarter of angle in frame. Right Top quarter is 0, counting counterclockwise
+*/
 + (NSUInteger)quarterOfAngle:(double)angle inFrame:(CGRect)frame;
 
 @end

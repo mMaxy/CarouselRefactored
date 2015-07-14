@@ -12,8 +12,8 @@
 
 @interface Rotator ()
 
-@property (assign, nonatomic) CGFloat decelerationValue;
-@property (assign, nonatomic) CGFloat velocityOfBounce;
+@property (assign, nonatomic, readonly) CGFloat decelerationValue;
+@property (assign, nonatomic, readonly) CGFloat velocityOfBounce;
 
 @end
 
@@ -21,7 +21,8 @@
 
 const float kCarouselDecelerationValue = 0.998f;
 const float kCarouselBounceVelocityValue = 0.2f;
-NSString *const kCarouselViewDecayAnimationName = @"AVOCarouselViewDecay";
+NSString *const kCarouselViewDecayAnimationName = @"CarouselViewDecay";
+NSString *const kCarouselViewBounceAnimationName = @"CarouselViewDecay";
 
 
 - (void)rotateCells:(NSArray *)cells onAngle:(CGFloat)angle {
@@ -58,9 +59,23 @@ NSString *const kCarouselViewDecayAnimationName = @"AVOCarouselViewDecay";
     [carouselView pop_removeAnimationForKey:@"bounce"];
 }
 
+- (BOOL)isDecayAnimationActiveOnCarouselView:(CarouselView *)carouselView {
+    return [carouselView pop_animationForKey:self.decayAnimationName] != nil;
+}
+
+- (BOOL)isBounceAnimationActiveOnCarouselView:(CarouselView *)carouselView {
+    return [carouselView pop_animationForKey:self.bounceAnimationName] != nil;
+}
+
+
 - (NSString *)decayAnimationName {
     return kCarouselViewDecayAnimationName;
 }
+
+- (NSString *)bounceAnimationName {
+    return kCarouselViewBounceAnimationName;
+}
+
 
 - (CGFloat)decelerationValue {
     return kCarouselDecelerationValue;
