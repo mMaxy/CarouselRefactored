@@ -35,11 +35,6 @@
 @property (strong, nonatomic) NSArray *cells;
 
 /**
-* animatable property
-*/
-- (POPAnimatableProperty *)animatableProperty;
-
-/**
 * Set cells to be shown on view
 */
 -(void) setCells:(NSArray *)cells;

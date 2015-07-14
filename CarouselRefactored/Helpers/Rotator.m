@@ -36,7 +36,7 @@
     CGFloat angleVelocity = velocity;
 
     POPDecayAnimation *decayAnimation = [POPDecayAnimation animation];
-    decayAnimation.property = [carouselView animatableProperty];
+    decayAnimation.property = [self animatableProperty];
     decayAnimation.velocity = @(angleVelocity);
     decayAnimation.deceleration = self.decelerationValue;
     decayAnimation.name = self.decayAnimationName;
@@ -46,7 +46,7 @@
 
 - (void)bounceAnimationToAngle:(CGFloat)angle onCarouselView:(Grid *)carouselView {
     POPSpringAnimation *springAnimation = [POPSpringAnimation animation];
-    springAnimation.property = [carouselView animatableProperty];
+    springAnimation.property = [self animatableProperty];
     springAnimation.velocity = @(self.velocityOfBounce);
     springAnimation.toValue = @(angle);
     [carouselView pop_addAnimation:springAnimation forKey:self.bounceAnimationName];
@@ -102,5 +102,22 @@
     return frame;
 }
 
+- (POPAnimatableProperty *)animatableProperty {
+    POPAnimatableProperty *prop = [POPAnimatableProperty propertyWithName:@"com.artolkov.carousel.cellsOffset"
+                                                              initializer:^(POPMutableAnimatableProperty *local_prop) {
+                                                                  // read value
+                                                                  local_prop.readBlock = ^(id obj, CGFloat values[]) {
+                                                                      values[0] = [obj cellsOffset];
+                                                                  };
+                                                                  // write value
+                                                                  local_prop.writeBlock = ^(id obj, const CGFloat values[]) {
+                                                                      [obj setCellsOffset:values[0]];
+                                                                  };
+                                                                  // dynamics threshold
+                                                                  local_prop.threshold = 0.01;
+                                                              }];
+
+    return prop;
+}
 
 @end

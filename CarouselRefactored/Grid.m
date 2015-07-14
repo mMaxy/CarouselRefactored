@@ -175,24 +175,6 @@
     self.cellsOffset = 0.f;
 }
 
-- (POPAnimatableProperty *)animatableProperty {
-    POPAnimatableProperty *prop = [POPAnimatableProperty propertyWithName:@"com.artolkov.carousel.cellsOffset"
-                                                              initializer:^(POPMutableAnimatableProperty *local_prop) {
-                                                                  // read value
-                                                                  local_prop.readBlock = ^(id obj, CGFloat values[]) {
-                                                                      values[0] = [obj cellsOffset];
-                                                                  };
-                                                                  // write value
-                                                                  local_prop.writeBlock = ^(id obj, const CGFloat values[]) {
-                                                                      [obj setCellsOffset:values[0]];
-                                                                  };
-                                                                  // dynamics threshold
-                                                                  local_prop.threshold = 0.01;
-                                                              }];
-
-    return prop;
-}
-
 #pragma mark - <POPAnimationDelegate>
 
 - (void)pop_animationDidStop:(POPAnimation *)popAnimation finished:(BOOL)finished {
