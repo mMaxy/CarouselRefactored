@@ -24,32 +24,30 @@
     [self setVerticalInset];
     [self setHorizontalInset];
 
-    [self calculateCellsFrames];
+    [self layoutCells];
 
     [self setRails];
     [self setRailsHeightToWidthRatio];
 }
 
-- (void)calculateCellsFrames {
+- (void)layoutCells {
     CGFloat x = self.horizontalInset;
     CGFloat y = self.verticalInset;
     NSMutableArray *cellsFrames = [NSMutableArray new];
-    for (int i = 0; i < 9; i++) {
-        if (i == 1 || i == 2) {
-            x += self.cellSize.width + self.spaceBetweenCells;
-        } else if (i == 3 || i == 4) {
-            y += self.cellSize.height + self.spaceBetweenCells;
-        } else if (i == 5 || i == 6) {
-            x -= self.cellSize.width + self.spaceBetweenCells;
-        } else if (i == 7) {
-            y -= self.cellSize.height + self.spaceBetweenCells;
-        } else if (i == 8) {
-            x += self.cellSize.width + self.spaceBetweenCells;
+    for (int yIndex = 0; yIndex < 3; yIndex++) {
+        for (int xIndex = 0; xIndex < 3; xIndex++) {
+            CGFloat newX = x + xIndex*(self.cellSize.width + self.spaceBetweenCells);
+            CGFloat newY = y + yIndex*(self.cellSize.height + self.spaceBetweenCells);
+            CGRect frame = CGRectMake(newX, newY, self.cellSize.width, self.cellSize.height);
+            [cellsFrames addObject:[NSValue valueWithCGRect:frame]];
         }
-        CGRect frame = CGRectMake(x, y, self.cellSize.width, self.cellSize.height);
-        [cellsFrames addObject:[NSValue valueWithCGRect:frame]];
     }
-    self.cellFrames = [cellsFrames copy];
+    NSMutableArray *res = [cellsFrames mutableCopy];
+    NSArray *transform = @[@(0), @(1), @(2), @(5), @(8), @(7), @(6), @(3), @(4)];;
+    for (int index = 0; index < 9; index++) {
+        res[index] = cellsFrames[[transform[index] unsignedIntegerValue]];
+    }
+    self.cellFrames = [res copy];
 }
 
 #pragma mark - Private
