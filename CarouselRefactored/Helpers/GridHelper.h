@@ -31,7 +31,7 @@ struct Borders {
 - заполнить массив ячейками
 - определьть корректные позиции ячеек (из массива просто вернуть фрейм)
 */
-@interface Grid : NSObject
+@interface GridHelper : NSObject
 
 
 /**

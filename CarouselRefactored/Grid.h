@@ -9,15 +9,15 @@
 
 
 @class Rotator;
-@class Grid;
+@class GridHelper;
 @class RotationGestureRecognizer;
 @class POPAnimatableProperty;
 
 
-@interface CarouselView : UIView <POPAnimationDelegate>
+@interface Grid : UIView <POPAnimationDelegate>
 
 @property (strong, nonatomic) Rotator *rotator;
-@property (strong, nonatomic) Grid *grid;
+@property (strong, nonatomic) GridHelper *grid;
 
 /**
 * Angle, with current offset from initial position

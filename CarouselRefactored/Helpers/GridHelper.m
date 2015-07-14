@@ -3,11 +3,11 @@
 // Copyright (c) 2015 Artem Olkov. All rights reserved.
 //
 
-#import "Grid.h"
+#import "GridHelper.h"
 #import "Geometry.h"
 
 
-@interface Grid ()
+@interface GridHelper ()
 
 @property(strong, nonatomic, readonly) NSArray *possibleOutcomes;
 
@@ -15,18 +15,14 @@
 @property(assign, nonatomic, readonly) CGFloat railsHeightToWidthRelation;
 
 - (void)actualSetCellSize:(CGSize)size andVerticalInset:(CGFloat)vi andHorizontalInset:(CGFloat)hi;
-
 - (void)countCellSizeAndInsets;
-
-- (NSArray *)findSectorHitWithPoint:(CGPoint)point borders:(struct Borders)borders;
-
+- (NSArray *)cellContainingPoint:(CGPoint)point inBorders:(struct Borders)borders;
 - (NSUInteger)calculateIndexForArray:(NSArray *)result;
-
 - (NSUInteger)findIndexForPoint:(CGPoint)point inGrid:(struct Borders)grid;
 
 @end
 
-@implementation Grid
+@implementation GridHelper
 
 @synthesize possibleOutcomes = _possibleOutcomes;
 
@@ -225,7 +221,7 @@
     return _possibleOutcomes;
 }
 
-- (NSArray *)findSectorHitWithPoint:(CGPoint)point borders:(struct Borders)borders {
+- (NSArray *)cellContainingPoint:(CGPoint)point inBorders:(struct Borders)borders {
     BOOL pointInLeftColumn = point.x >= borders.xLeftCellLeftBorder && point.x <= borders.xLeftCellRightBorder;
     BOOL pointInCenterColumn = point.x >= borders.xCenterCellLeftBorder && point.x <= borders.xCenterCellRightBorder;
     BOOL pointInRightColumn = point.x >= borders.xRightCellLeftBorder && point.x <= borders.xRightCellRightBorder;
@@ -268,7 +264,7 @@
 
 - (NSUInteger)findIndexForPoint:(CGPoint)point inGrid:(struct Borders)grid {
     NSUInteger res = 0;
-    NSArray *result = [self findSectorHitWithPoint:point borders:grid];
+    NSArray *result = [self cellContainingPoint:point inBorders:grid];
     res = [self calculateIndexForArray:result];
     return res;
 }

@@ -6,9 +6,9 @@
 #import <pop/POPDecayAnimation.h>
 #import <pop/POPSpringAnimation.h>
 #import "Rotator.h"
-#import "CarouselView.h"
-#import "Cell.h"
 #import "Grid.h"
+#import "Cell.h"
+#import "GridHelper.h"
 
 
 @interface Rotator ()
@@ -19,7 +19,7 @@
 /**
 * returns frame for cell after applying offset
 */
-- (CGRect)frameForCellAtIndex:(NSUInteger)index withOffset:(CGFloat)offset withGrid:(Grid *)grid;
+- (CGRect)frameForCellAtIndex:(NSUInteger)index withOffset:(CGFloat)offset withGrid:(GridHelper *)grid;
 @end
 
 @implementation Rotator
@@ -30,7 +30,7 @@ NSString *const kCarouselViewDecayAnimationName = @"CarouselViewDecay";
 NSString *const kCarouselViewBounceAnimationName = @"CarouselViewDecay";
 
 
-- (void)rotateCells:(NSArray *)cells onAngle:(CGFloat)angle withGrid:(Grid *) grid {
+- (void)rotateCells:(NSArray *)cells onAngle:(CGFloat)angle withGrid:(GridHelper *) grid {
     NSUInteger index = 0;
     for (UIView *cell in cells) {
         CGRect frame = [self frameForCellAtIndex:index withOffset:angle withGrid:grid];
@@ -39,7 +39,7 @@ NSString *const kCarouselViewBounceAnimationName = @"CarouselViewDecay";
     }
 }
 
-- (void)decayAnimationWithVelosity:(CGFloat)velocity onCarouselView:(CarouselView *)carouselView{
+- (void)decayAnimationWithVelosity:(CGFloat)velocity onCarouselView:(Grid *)carouselView{
     CGFloat angleVelocity = velocity;
 
     POPDecayAnimation *decayAnimation = [POPDecayAnimation animation];
@@ -51,7 +51,7 @@ NSString *const kCarouselViewBounceAnimationName = @"CarouselViewDecay";
     [carouselView pop_addAnimation:decayAnimation forKey:@"decelerate"];
 }
 
-- (void)bounceAnimationToAngle:(CGFloat)angle onCarouselView:(CarouselView *)carouselView{
+- (void)bounceAnimationToAngle:(CGFloat)angle onCarouselView:(Grid *)carouselView{
     POPSpringAnimation *springAnimation = [POPSpringAnimation animation];
     springAnimation.property = [carouselView cellsOffsetAnimatableProperty];
     springAnimation.velocity = @(self.velocityOfBounce);
@@ -59,19 +59,19 @@ NSString *const kCarouselViewBounceAnimationName = @"CarouselViewDecay";
     [carouselView pop_addAnimation:springAnimation forKey:@"bounce"];
 }
 
-- (void)stopDecayAnimationOnCarouselView:(CarouselView *)carouselView {
+- (void)stopDecayAnimationOnCarouselView:(Grid *)carouselView {
     [self pop_removeAnimationForKey:@"decelerate"];
 }
 
-- (void)stopBounceAnimationOnCarouselView:(CarouselView *)carouselView {
+- (void)stopBounceAnimationOnCarouselView:(Grid *)carouselView {
     [carouselView pop_removeAnimationForKey:@"bounce"];
 }
 
-- (BOOL)isDecayAnimationActiveOnCarouselView:(CarouselView *)carouselView {
+- (BOOL)isDecayAnimationActiveOnCarouselView:(Grid *)carouselView {
     return [carouselView pop_animationForKey:self.decayAnimationName] != nil;
 }
 
-- (BOOL)isBounceAnimationActiveOnCarouselView:(CarouselView *)carouselView {
+- (BOOL)isBounceAnimationActiveOnCarouselView:(Grid *)carouselView {
     return [carouselView pop_animationForKey:self.bounceAnimationName] != nil;
 }
 
@@ -95,7 +95,7 @@ NSString *const kCarouselViewBounceAnimationName = @"CarouselViewDecay";
 
 #pragma mark - Private
 
-- (CGRect)frameForCellAtIndex:(NSUInteger)index withOffset:(CGFloat)offset withGrid:(Grid *)grid {
+- (CGRect)frameForCellAtIndex:(NSUInteger)index withOffset:(CGFloat)offset withGrid:(GridHelper *)grid {
     CGRect frame = CGRectZero;
 
     frame.size = [grid cellSize];

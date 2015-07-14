@@ -7,11 +7,11 @@
 //
 
 #import "ViewController.h"
-#import "CarouselView.h"
+#import "Grid.h"
 #import "Cell.h"
 
 @interface ViewController ()
-@property (strong, nonatomic) CarouselView *carousel;
+@property (strong, nonatomic) Grid *carousel;
 
 @end
 
@@ -19,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.carousel = [[CarouselView alloc] initWithFrame:self.view.frame];
+    self.carousel = [[Grid alloc] initWithFrame:self.view.frame];
     NSMutableArray *cells = [NSMutableArray new];
     for (int i = 0; i < 9; i++) {
         Cell *cell = [[Cell alloc] init];

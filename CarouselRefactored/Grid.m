@@ -4,18 +4,18 @@
 //
 
 #import <pop/POPAnimatableProperty.h>
-#import "CarouselView.h"
-#import "Rotator.h"
 #import "Grid.h"
+#import "Rotator.h"
+#import "GridHelper.h"
 #import "RotationGestureRecognizer.h"
 #import "Cell.h"
 
 
-@interface CarouselView () <UIGestureRecognizerDelegate>
+@interface Grid () <UIGestureRecognizerDelegate>
 @property(nonatomic) CGFloat startOffset;
 @end
 
-@implementation CarouselView
+@implementation Grid
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -32,7 +32,7 @@
 }
 
 - (void)calculateDefaults {
-    self.grid = [[Grid alloc] init];
+    self.grid = [[GridHelper alloc] init];
     self.rotator = [[Rotator alloc] init];
 
     [self.grid setFrame:self.frame];
