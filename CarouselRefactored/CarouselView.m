@@ -151,6 +151,17 @@
     }
 }
 
+- (void)setCellsOffset:(CGFloat)cellsOffset {
+    _cellsOffset = cellsOffset;
+    if (_cellsOffset > _maxCellsOffset) {
+        _cellsOffset -= _maxCellsOffset;
+    }
+    if (_cellsOffset < 0) {
+        _cellsOffset += _maxCellsOffset;
+    }
+    [self placeCells];
+}
+
 -(void) setCells:(NSArray *)cells {
     [self.grid setCells:cells];
     [self placeCells];
