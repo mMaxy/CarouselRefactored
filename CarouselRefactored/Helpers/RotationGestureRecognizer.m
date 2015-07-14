@@ -26,7 +26,7 @@
     return res;
 }
 
-- (SpinDirection)directionOfSpinInView:(UIView *) view {
+- (SpinDirection)directionOfSpinInView:(UIView *)view {
     SpinDirection res;
     CGPoint velocity = [self velocityInView:view];
     CGPoint point = [self locationInView:view];
@@ -42,7 +42,7 @@
 
     CGPoint point = [self locationInView:view];
     //radius from center view to touch
-    CGFloat radius = sqrtf((fabsf(point.x)-view.frame.size.width/2) * (fabsf(point.x)-view.frame.size.width/2) + (fabsf(point.y)-view.frame.size.height/2) * (fabsf(point.y)-view.frame.size.height/2));
+    CGFloat radius = sqrtf((fabsf(point.x) - view.frame.size.width / 2) * (fabsf(point.x) - view.frame.size.width / 2) + (fabsf(point.y) - view.frame.size.height / 2) * (fabsf(point.y) - view.frame.size.height / 2));
 
     CGFloat angleVelocity = (CGFloat) sqrtf(velocity.x * velocity.x + velocity.y * velocity.y) / radius;
 

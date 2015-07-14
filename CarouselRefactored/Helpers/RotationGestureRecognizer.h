@@ -26,7 +26,7 @@
 /**
 * get direction of spin
 */
-- (SpinDirection)directionOfSpinInView:(UIView *) view;
+- (SpinDirection)directionOfSpinInView:(UIView *)view;
 
 /**
 * get angle velocity from linear velocity on pan

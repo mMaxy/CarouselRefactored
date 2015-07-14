@@ -11,7 +11,7 @@
 @class GridHelper;
 
 /**
- Вращатель - вращать ячейки, на входе подается массив ячеек
+Вращатель - вращать ячейки, на входе подается массив ячеек
 _ответсвенность:_
 - Рассчитать скорость, угасание и прочее
 - Изменить нужным целам их позиции
@@ -26,52 +26,52 @@ _ответсвенность:_
 *  @param angle angle from initial position
 *  @grid grid GridHelper to use
 */
-- (void)rotateCells:(NSArray *)cells onAngle:(CGFloat)angle withGrid:(GridHelper *) grid;
+- (void)rotateCells:(NSArray *)cells onAngle:(CGFloat)angle withGrid:(GridHelper *)grid;
 
 /**
 * animate inertial spinning on view
 * @param velocity Initial angle velocity, with which animation will start
 * @param carouselView View to animate
 */
--(void) decayAnimationWithVelosity:(CGFloat) velocity onCarouselView:(Grid *)carouselView;
+- (void)decayAnimationWithVelosity:(CGFloat)velocity onCarouselView:(Grid *)carouselView;
 
 /**
 * decay animation name
 */
--(NSString *) decayAnimationName;
+- (NSString *)decayAnimationName;
 
 /**
 * bounce animation name
 */
--(NSString *) bounceAnimationName;
+- (NSString *)bounceAnimationName;
 
 /**
 * animate bounce on view
 * @param angle Angle to which bounce should be performed
 * @param carouselView View to animate
 */
--(void) bounceAnimationToAngle:(CGFloat) angle onCarouselView:(Grid *)carouselView;
+- (void)bounceAnimationToAngle:(CGFloat)angle onCarouselView:(Grid *)carouselView;
 
 /**
 * stopping decay animation
 * @param carouselView Carousel view on which animation should be stopped
 */
--(void) stopDecayAnimationOnCarouselView:(Grid *)carouselView;
+- (void)stopDecayAnimationOnCarouselView:(Grid *)carouselView;
 
 /**
 * stopping bounce animation
 * @param carouselView Carousel view on which animation should be stopped
 */
--(void) stopBounceAnimationOnCarouselView:(Grid *)carouselView;
+- (void)stopBounceAnimationOnCarouselView:(Grid *)carouselView;
 
 /**
 * check is decay animation active on carousel view
 */
--(BOOL) isDecayAnimationActiveOnCarouselView:(Grid *)carouselView;
+- (BOOL)isDecayAnimationActiveOnCarouselView:(Grid *)carouselView;
 
 /**
 * check is bounce animation active on carousel view
 */
--(BOOL) isBounceAnimationActiveOnCarouselView:(Grid *)carouselView;
+- (BOOL)isBounceAnimationActiveOnCarouselView:(Grid *)carouselView;
 
 @end

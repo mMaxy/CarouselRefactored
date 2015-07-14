@@ -11,7 +11,7 @@
 
 @property(assign, nonatomic, readonly) CGRect rails;
 @property(assign, nonatomic, readonly) CGFloat railsHeightToWidthRelation;
-@property (strong, nonatomic) NSArray *cellFrames;
+@property(strong, nonatomic) NSArray *cellFrames;
 
 - (void)countCellSizeAndInsets;
 
@@ -106,29 +106,29 @@
 - (CGPoint)centerForIndex:(NSUInteger)index {
     CGPoint result = CGPointZero;
 
-    result.x = [self.cellFrames[index] CGRectValue].origin.x + self.cellSize.width/2;
-    result.y = [self.cellFrames[index] CGRectValue].origin.y + self.cellSize.height/2;
+    result.x = [self.cellFrames[index] CGRectValue].origin.x + self.cellSize.width / 2;
+    result.y = [self.cellFrames[index] CGRectValue].origin.y + self.cellSize.height / 2;
 
     return result;
 }
 
 - (void)moveCenter:(CGPoint *)center byAngle:(double)angle {
-        CGPoint p = (*center);
-        double remain = angle;
+    CGPoint p = (*center);
+    double remain = angle;
 
-        CGRect f = self.rails;
+    CGRect f = self.rails;
 
-        p.x = p.x - self.horizontalInset - self.cellSize.width / 2;
-        p.y = p.y - self.verticalInset - self.cellSize.height / 2;
-        p.y *= 1 / self.railsHeightToWidthRelation;
+    p.x = p.x - self.horizontalInset - self.cellSize.width / 2;
+    p.y = p.y - self.verticalInset - self.cellSize.height / 2;
+    p.y *= 1 / self.railsHeightToWidthRelation;
 
-        CGPoint rotated = [Geometry rotatedPointFromPoint:p byAngle:remain inFrame:f];
+    CGPoint rotated = [Geometry rotatedPointFromPoint:p byAngle:remain inFrame:f];
 
-        rotated.y *= self.railsHeightToWidthRelation;
-        rotated.x = rotated.x + self.horizontalInset + self.cellSize.width / 2;
-        rotated.y = rotated.y + self.verticalInset + self.cellSize.height / 2;
+    rotated.y *= self.railsHeightToWidthRelation;
+    rotated.x = rotated.x + self.horizontalInset + self.cellSize.width / 2;
+    rotated.y = rotated.y + self.verticalInset + self.cellSize.height / 2;
 
-        (*center) = CGPointMake(rotated.x, rotated.y);
+    (*center) = CGPointMake(rotated.x, rotated.y);
 }
 
 - (NSUInteger)indexForCellWithPoint:(CGPoint)point withOffset:(CGFloat)offset {
