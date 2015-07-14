@@ -5,7 +5,12 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "RotationGestureRecognizer.h"
+
+typedef NS_ENUM(NSInteger, SpinDirection) {
+    SpinNone = 0,
+    SpinClockwise,
+    SpinCounterClockwise
+};
 
 /**
 * Геометрия - расчет секторов, позиций, скоростей и прочего ответсвенность:

@@ -9,12 +9,7 @@
 #import "POPAnimatableProperty.h"
 #import "POPDecayAnimation.h"
 #import "POPSpringAnimation.h"
-
-typedef NS_ENUM(NSInteger, SpinDirection) {
-    SpinNone = 0,
-    SpinClockwise,
-    SpinCounterClockwise
-};
+#import "Geometry.h"
 
 @interface RotationGestureRecognizer : UIPanGestureRecognizer
 

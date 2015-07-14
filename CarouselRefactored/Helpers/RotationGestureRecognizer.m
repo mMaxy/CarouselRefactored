@@ -4,8 +4,6 @@
 //
 
 #import "RotationGestureRecognizer.h"
-#import "Geometry.h"
-
 
 @interface RotationGestureRecognizer ()
 
