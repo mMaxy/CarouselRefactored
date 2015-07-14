@@ -21,18 +21,21 @@ typedef NS_ENUM(NSInteger, SpinDirection) {
 /**
 * get angle from pan gesture started
 */
-@property (assign, nonatomic, readonly) CGFloat startAngle;
+- (CGFloat)startAngleInView:(UIView *)view;
+
 /**
 * get angle from current state of pan gesture
 */
-@property (assign, nonatomic, readonly) CGFloat currentAngle;
+- (CGFloat)currentAngleInView:(UIView *)view;
+
 /**
 * get direction of spin
 */
-@property (assign, nonatomic, readonly) SpinDirection directionOfSpin;
+- (SpinDirection)directionOfSpinInView:(UIView *) view;
+
 /**
 * get angle velocity from linear velocity on pan
 */
-@property (assign, nonatomic, readonly) CGFloat angleVelocity;
+- (CGFloat)angleVelocityInView:(UIView *)view;
 
 @end
