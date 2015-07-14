@@ -11,18 +11,28 @@
 #import "POPSpringAnimation.h"
 
 typedef NS_ENUM(NSInteger, SpinDirection) {
-    AVOSpinNone = 0,
-    AVOSpinClockwise,
-    AVOSpinCounterClockwise
+    SpinNone = 0,
+    SpinClockwise,
+    SpinCounterClockwise
 };
 
 @interface RotationGestureRecognizer : UIPanGestureRecognizer
 
-@property (assign, nonatomic) CGFloat startOffset;
-@property (assign, nonatomic, readonly) CGFloat offset;
-@property (assign, nonatomic, readonly) SpinDirection direction;
+/**
+* get angle from pan gesture started
+*/
+@property (assign, nonatomic, readonly) CGFloat startAngle;
+/**
+* get angle from current state of pan gesture
+*/
+@property (assign, nonatomic, readonly) CGFloat currentAngle;
+/**
+* get direction of spin
+*/
+@property (assign, nonatomic, readonly) SpinDirection directionOfSpin;
+/**
+* get angle velocity from linear velocity on pan
+*/
 @property (assign, nonatomic, readonly) CGFloat angleVelocity;
-
-
 
 @end

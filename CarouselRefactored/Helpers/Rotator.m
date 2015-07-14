@@ -4,26 +4,71 @@
 //
 
 #import <pop/POPDecayAnimation.h>
+#import <pop/POPSpringAnimation.h>
 #import "Rotator.h"
+#import "CarouselView.h"
+#import "Cell.h"
 
 
-@implementation Rotator {
+@interface Rotator ()
 
-}
+@property (assign, nonatomic) CGFloat decelerationValue;
+@property (assign, nonatomic) CGFloat velocityOfBounce;
+
+@end
+
+@implementation Rotator
+
+const float kCarouselDecelerationValue = 0.998f;
+const float kCarouselBounceVelocityValue = 0.2f;
+NSString *const kCarouselViewDecayAnimationName = @"AVOCarouselViewDecay";
+
+
 - (void)rotateCells:(NSArray *)cells onAngle:(CGFloat)angle {
-
+    for (Cell *cell in cells) {
+        //rotate cell
+    }
 }
 
-- (POPDecayAnimation *)decayAnimationWithVelosity:(CGFloat)velocity {
-    return nil;
+- (void)decayAnimationWithVelosity:(CGFloat)velocity onCarouselView:(CarouselView *)carouselView{
+    CGFloat angleVelocity = velocity;
+
+    POPDecayAnimation *decayAnimation = [POPDecayAnimation animation];
+    decayAnimation.property = [carouselView cellsOffsetAnimatableProperty];
+    decayAnimation.velocity = @(angleVelocity);
+    decayAnimation.deceleration = self.decelerationValue;
+    decayAnimation.name = self.decayAnimationName;
+    decayAnimation.delegate = carouselView;
+    [self pop_addAnimation:decayAnimation forKey:@"decelerate"];
 }
 
-- (POPDecayAnimation *)bounceAnimationToAngle:(CGFloat)angle {
-    return nil;
+- (void)bounceAnimationToAngle:(CGFloat)angle onCarouselView:(CarouselView *)carouselView{
+    POPSpringAnimation *springAnimation = [POPSpringAnimation animation];
+    springAnimation.property = [carouselView cellsOffsetAnimatableProperty];
+    springAnimation.velocity = @(self.velocityOfBounce);
+    springAnimation.toValue = @(angle);
+    [carouselView pop_addAnimation:springAnimation forKey:@"bounce"];
 }
 
-- (POPAnimatableProperty *)cellsOffsetAnimatableProperty {
-    return nil;
+- (void)stopDecayAnimationOnCarouselView:(CarouselView *)carouselView {
+    [self pop_removeAnimationForKey:@"decelerate"];
 }
+
+- (void)stopBounceAnimationOnCarouselView:(CarouselView *)carouselView {
+    [carouselView pop_removeAnimationForKey:@"bounce"];
+}
+
+- (NSString *)decayAnimationName {
+    return kCarouselViewDecayAnimationName;
+}
+
+- (CGFloat)decelerationValue {
+    return kCarouselDecelerationValue;
+}
+
+- (CGFloat)velocityOfBounce {
+    return kCarouselBounceVelocityValue;
+}
+
 
 @end

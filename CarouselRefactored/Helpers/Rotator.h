@@ -7,6 +7,11 @@
 #import <UIKit/UIKit.h>
 
 @class POPDecayAnimation;
+@class CarouselView;
+
+FOUNDATION_EXPORT const float kCarouselDecelerationValue;
+FOUNDATION_EXPORT const float kCarouselBounceVelocityValue;
+FOUNDATION_EXPORT NSString *const kCarouselViewDecayAnimationName;
 
 /**
  Вращатель - вращать ячейки, на входе подается массив ячеек
@@ -18,10 +23,42 @@ _ответсвенность:_
 */
 @interface Rotator : NSObject
 
+/**
+* rotating cells. For each cell recalculates frame and setting that frame to cell
+*  @param cells Array of cells to spin
+*  @param angle angle from initial position
+*/
 -(void) rotateCells:(NSArray *)cells onAngle:(CGFloat) angle;
--(POPDecayAnimation *) decayAnimationWithVelosity:(CGFloat) velocity;
--(POPDecayAnimation *) bounceAnimationToAngle:(CGFloat) angle;
 
-- (POPAnimatableProperty *)cellsOffsetAnimatableProperty;
+/**
+* animate inertial spinning on view
+* @param velocity Initial angle velocity, with which animation will start
+* @param carouselView View to animate
+*/
+-(void) decayAnimationWithVelosity:(CGFloat) velocity onCarouselView:(CarouselView *)carouselView;
+
+/**
+* decay animation name
+*/
+-(NSString *) decayAnimationName;
+
+/**
+* animate bounce on view
+* @param angle Angle to which bounce should be performed
+* @param carouselView View to animate
+*/
+-(void) bounceAnimationToAngle:(CGFloat) angle onCarouselView:(CarouselView *)carouselView;
+
+/**
+* stopping decay animation
+* @param carouselView Carousel view on which animation should be stopped
+*/
+-(void) stopDecayAnimationOnCarouselView:(CarouselView *)carouselView;
+
+/**
+* stopping bounce animation
+* @param carouselView Carousel view on which animation should be stopped
+*/
+-(void) stopBounceAnimationOnCarouselView:(CarouselView *)carouselView;
 
 @end

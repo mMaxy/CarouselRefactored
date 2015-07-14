@@ -8,25 +8,30 @@
 
 @interface RotationGestureRecognizer ()
 
-@property (assign, nonatomic, readwrite) CGFloat offset;
-@property (assign, nonatomic, readwrite) SpinDirection direction;
-@property (assign, nonatomic, readwrite) CGFloat angleVelocity;
-
 @end
 
 @implementation RotationGestureRecognizer {
 
 }
-- (CGFloat)offset {
-    return _offset;
+- (CGFloat)startAngle {
+    CGFloat res = 0.f;
+
+    return res;
 }
 
-- (SpinDirection)direction {
-    return _direction;
+- (CGFloat)currentAngle {
+    CGFloat res = 0.f;
+    return res;
+}
+
+- (SpinDirection)directionOfSpin {
+    SpinDirection res = SpinNone;
+    return res;
 }
 
 - (CGFloat)angleVelocity {
-    return _angleVelocity;
+    CGFloat res = 0.f;
+    return res;
 }
 
 @end
