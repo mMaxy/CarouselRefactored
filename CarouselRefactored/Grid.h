@@ -39,4 +39,9 @@
 */
 -(void) setCells:(NSArray *)cells;
 
+/**
+* cells to place (count of cells must be 9)
+*/
+@property (strong, nonatomic) NSArray *cells;
+
 @end

@@ -99,7 +99,7 @@
             CGPoint point = [recognizer locationInView:self];
             NSUInteger index = [self.grid indexForCellWithPoint:point
                                                      withOffset:self.cellsOffset];
-            [self.grid.cells[index] longTapStarted];
+            [self.cells[index] longTapStarted];
         }
             break;
         case UIGestureRecognizerStateCancelled:
@@ -108,7 +108,7 @@
             NSUInteger index = [self.grid indexForCellWithPoint:point
                                                      withOffset:self.cellsOffset];
 
-            [self.grid.cells[index] longTapEnded];
+            [self.cells[index] longTapEnded];
         }
             break;
 
@@ -126,9 +126,7 @@
     CGPoint point = [recognizer locationInView:self];
     NSUInteger index = [self.grid indexForCellWithPoint:point
                                                  withOffset:self.cellsOffset];
-    [self.grid.cells[index] tapped];
-
-//    [self bounceCells];
+    [self.cells[index] tapped];
 }
 
 - (void)stopAnimations {
@@ -142,7 +140,7 @@
 }
 
 - (void)placeCells {
-    [self.rotator rotateCells:self.grid.cells onAngle:self.cellsOffset withGrid:self.grid];
+    [self.rotator rotateCells:self.cells onAngle:self.cellsOffset withGrid:self.grid];
 }
 
 - (void)bounceCells {
@@ -162,7 +160,7 @@
 }
 
 -(void) setCells:(NSArray *)cells {
-    [self.grid setCells:cells];
+    _cells = cells;
     for (Cell *cell in cells) {
         [self addSubview:cell];
     }

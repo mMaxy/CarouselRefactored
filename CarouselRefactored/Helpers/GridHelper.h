@@ -9,21 +9,21 @@
 /**
 * struct to pass borders on grid
 */
-struct Borders {
-    CGFloat xLeftCellLeftBorder;
-    CGFloat xLeftCellRightBorder;
-    CGFloat xCenterCellLeftBorder;
-    CGFloat xCenterCellRightBorder;
-    CGFloat xRightCellLeftBorder;
-    CGFloat xRightCellRightBorder;
-
-    CGFloat yTopCellTopBorder;
-    CGFloat yTopCellBotBorder;
-    CGFloat yCenterCellTopBorder;
-    CGFloat yCenterCellBotBorder;
-    CGFloat yBotCellTopBorder;
-    CGFloat yBotCellBotBorder;
-};
+//struct Borders {
+//    CGFloat xLeftCellLeftBorder;
+//    CGFloat xLeftCellRightBorder;
+//    CGFloat xCenterCellLeftBorder;
+//    CGFloat xCenterCellRightBorder;
+//    CGFloat xRightCellLeftBorder;
+//    CGFloat xRightCellRightBorder;
+//
+//    CGFloat yTopCellTopBorder;
+//    CGFloat yTopCellBotBorder;
+//    CGFloat yCenterCellTopBorder;
+//    CGFloat yCenterCellBotBorder;
+//    CGFloat yBotCellTopBorder;
+//    CGFloat yBotCellBotBorder;
+//};
 
 /**
 - 1. Грид - сетка из 9 фреймов, 0 - центральный фрейм, и 8 тех что двигаются, ответсвенность:
@@ -59,12 +59,7 @@ struct Borders {
 /**
 * borders of cell (see struct for info)
 */
-@property(assign, nonatomic, readonly) struct Borders cellBorders;
-
-/**
-* cells to place (count of cells must be 9)
-*/
-@property (strong, nonatomic) NSArray *cells;
+//@property(assign, nonatomic, readonly) struct Borders cellBorders;
 
 /**
 * frame to place cells
@@ -72,19 +67,9 @@ struct Borders {
 @property (assign, nonatomic) CGRect frame;
 
 /**
-* init method
-*/
-- (instancetype)initWithFrame:(CGRect)rect;
-
-/**
 * frame on which cells must be placed
 */
 -(void)setFrame:(CGRect)rect;
-
-/**
-* calculating default position for cell at index
-*/
--(CGRect) frameForCellAtIndex:(NSUInteger)index;
 
 /**
 * center of cell in index
