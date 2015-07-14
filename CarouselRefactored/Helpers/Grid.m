@@ -40,6 +40,7 @@
 
 - (void)setFrame:(CGRect)rect {
     _frame = rect;
+    _spaceBetweenCells = 5.f;
     [self countCellSizeAndInsets];
 
     CGFloat railYMin = [self centerForIndex:2].y;

@@ -8,6 +8,7 @@
 #import "Rotator.h"
 #import "Grid.h"
 #import "RotationGestureRecognizer.h"
+#import "Cell.h"
 
 
 @interface CarouselView () <UIGestureRecognizerDelegate>
@@ -45,7 +46,7 @@
 }
 
 - (void)setupTouches {
-    RotationGestureRecognizer *rotationRecognizer = [[RotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+    UITapGestureRecognizer *rotationRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
     rotationRecognizer.delegate = self;
     [self addGestureRecognizer:rotationRecognizer];
 
@@ -55,7 +56,7 @@
 
     [self addGestureRecognizer:longPressGestureRecognizer];
 
-    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
+    RotationGestureRecognizer *panGestureRecognizer = [[RotationGestureRecognizer alloc] initWithTarget:self
                                                                     action:@selector(handlePanGesture:)];
     panGestureRecognizer.delegate = self;
     [self addGestureRecognizer:panGestureRecognizer];
@@ -98,8 +99,7 @@
             CGPoint point = [recognizer locationInView:self];
             NSUInteger index = [self.grid indexForCellWithPoint:point
                                                      withOffset:self.cellsOffset];
-//            [self.delegate carouselView:self
-//                 longpressOnCellAtIndex:index];
+            [self.grid.cells[index] longTapStarted];
         }
             break;
         case UIGestureRecognizerStateCancelled:
@@ -107,8 +107,8 @@
             CGPoint point = [recognizer locationInView:self];
             NSUInteger index = [self.grid indexForCellWithPoint:point
                                                      withOffset:self.cellsOffset];
-//            [self.delegate carouselView:self
-//                      liftOnCellAtIndex:index];
+
+            [self.grid.cells[index] longTapEnded];
         }
             break;
 
@@ -126,14 +126,14 @@
     CGPoint point = [recognizer locationInView:self];
     NSUInteger index = [self.grid indexForCellWithPoint:point
                                                  withOffset:self.cellsOffset];
-//    [self.delegate carouselView:self
-//               tapOnCellAtIndex:index];
+    [self.grid.cells[index] tapped];
 
-//    [self moveCellsToPlace];
+//    [self bounceCells];
 }
 
 - (void)stopAnimations {
-
+    [self.rotator stopBounceAnimationOnCarouselView:self];
+    [self.rotator stopDecayAnimationOnCarouselView:self];
 }
 
 -(void) setFrame:(CGRect)frame {
@@ -149,6 +149,11 @@
         [self addSubview:cell];
         index++;
     }
+}
+
+- (void)bounceCells {
+    CGFloat angle = [Geometry nearestFixedPositionFrom:self.cellsOffset];
+    [self.rotator bounceAnimationToAngle:angle onCarouselView:self];
 }
 
 - (void)setCellsOffset:(CGFloat)cellsOffset {
@@ -189,8 +194,7 @@
 
 - (void)pop_animationDidStop:(POPAnimation *)popAnimation finished:(BOOL)finished {
     if ([popAnimation.name isEqualToString:self.rotator.decayAnimationName] && finished) {
-        CGFloat angle = [Geometry nearestFixedPositionFrom:self.cellsOffset];
-        [self.rotator bounceAnimationToAngle:angle onCarouselView:self];
+        [self bounceCells];
     }
 }
 

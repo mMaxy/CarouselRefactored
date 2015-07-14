@@ -41,7 +41,7 @@ NSString *const kCarouselViewBounceAnimationName = @"CarouselViewDecay";
     decayAnimation.deceleration = self.decelerationValue;
     decayAnimation.name = self.decayAnimationName;
     decayAnimation.delegate = carouselView;
-    [self pop_addAnimation:decayAnimation forKey:@"decelerate"];
+    [carouselView pop_addAnimation:decayAnimation forKey:@"decelerate"];
 }
 
 - (void)bounceAnimationToAngle:(CGFloat)angle onCarouselView:(CarouselView *)carouselView{
