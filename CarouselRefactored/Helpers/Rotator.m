@@ -41,7 +41,7 @@
     decayAnimation.deceleration = self.decelerationValue;
     decayAnimation.name = self.decayAnimationName;
     decayAnimation.delegate = carouselView;
-    [carouselView pop_addAnimation:decayAnimation forKey:@"decelerate"];
+    [carouselView pop_addAnimation:decayAnimation forKey:self.decayAnimationName];
 }
 
 - (void)bounceAnimationToAngle:(CGFloat)angle onCarouselView:(Grid *)carouselView {
@@ -49,23 +49,23 @@
     springAnimation.property = [carouselView animatableProperty];
     springAnimation.velocity = @(self.velocityOfBounce);
     springAnimation.toValue = @(angle);
-    [carouselView pop_addAnimation:springAnimation forKey:@"bounce"];
+    [carouselView pop_addAnimation:springAnimation forKey:self.bounceAnimationName];
 }
 
 - (void)stopDecayAnimationOnGrid:(Grid *)grid {
-    [grid pop_removeAnimationForKey:@"decelerate"];
+    [grid pop_removeAnimationForKey:self.decayAnimationName];
 }
 
 - (void)stopBounceAnimationOnGrid:(Grid *)grid {
-    [grid pop_removeAnimationForKey:@"bounce"];
+    [grid pop_removeAnimationForKey:self.bounceAnimationName];
 }
 
 - (BOOL)isDecayAnimationActiveOnGrid:(Grid *)grid {
-    return [grid pop_animationForKey:@"decelerate"] != nil;
+    return [grid pop_animationForKey:self.decayAnimationName] != nil;
 }
 
 - (BOOL)isBounceAnimationActiveOnGrid:(Grid *)grid {
-    return [grid pop_animationForKey:@"bounce"] != nil;
+    return [grid pop_animationForKey:self.bounceAnimationName] != nil;
 }
 
 
