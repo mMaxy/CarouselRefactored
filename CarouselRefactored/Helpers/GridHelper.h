@@ -45,7 +45,7 @@
 /**
 * center of cell in index
 */
-- (CGPoint)centerPointForIndex:(NSUInteger)index;
+- (CGPoint)centerOfCellWithIndex:(NSUInteger)index;
 
 /**
 * moving center

@@ -26,10 +26,10 @@
 
     [self calculateCellsFrames];
 
-    CGFloat railYMin = [self centerPointForIndex:2].y;
-    CGFloat railYMax = [self centerPointForIndex:4].y;
-    CGFloat railXMin = [self centerPointForIndex:0].x;
-    CGFloat railXMax = [self centerPointForIndex:2].x;
+    CGFloat railYMin = [self centerOfCellWithIndex:2].y;
+    CGFloat railYMax = [self centerOfCellWithIndex:4].y;
+    CGFloat railXMin = [self centerOfCellWithIndex:0].x;
+    CGFloat railXMax = [self centerOfCellWithIndex:2].x;
     _rails = CGRectMake(railXMin, railXMin, railXMax - railXMin, railXMax - railXMin);
     _railsHeightToWidthRelation = (railYMax - railYMin) / (railXMax - railXMin);
 }
@@ -103,7 +103,7 @@
     _horizontalInset = hi;
 }
 
-- (CGPoint)centerPointForIndex:(NSUInteger)index {
+- (CGPoint)centerOfCellWithIndex:(NSUInteger)index {
     CGPoint result = CGPointZero;
 
     result.x = [self.cellFrames[index] CGRectValue].origin.x + self.cellSize.width / 2;

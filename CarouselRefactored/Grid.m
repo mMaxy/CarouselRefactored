@@ -13,6 +13,11 @@
 
 @interface Grid () <UIGestureRecognizerDelegate>
 @property(nonatomic) CGFloat startOffset;
+
+@property (strong, nonatomic) RotationGestureRecognizer *rotationRecognizer;
+@property (strong, nonatomic) UITapGestureRecognizer *tapRecognizer;
+@property (strong, nonatomic) UILongPressGestureRecognizer *longPressRecognizer;
+
 @end
 
 @implementation Grid
@@ -46,24 +51,25 @@
 }
 
 - (void)setupTouches {
-    UITapGestureRecognizer *rotationRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
-    rotationRecognizer.delegate = self;
-    [self addGestureRecognizer:rotationRecognizer];
 
-    UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+    self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+    self.tapRecognizer.delegate = self;
+    [self addGestureRecognizer:self.tapRecognizer];
+
+    self.longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
                                                                                 action:@selector(handleLongPressGesture:)];
-    longPressGestureRecognizer.delegate = self;
+    self.longPressRecognizer.delegate = self;
 
-    [self addGestureRecognizer:longPressGestureRecognizer];
+    [self addGestureRecognizer:self.longPressRecognizer];
 
-    RotationGestureRecognizer *panGestureRecognizer = [[RotationGestureRecognizer alloc] initWithTarget:self
-                                                                    action:@selector(handlePanGesture:)];
-    panGestureRecognizer.delegate = self;
-    [self addGestureRecognizer:panGestureRecognizer];
+    self.rotationRecognizer = [[RotationGestureRecognizer alloc] initWithTarget:self
+                                                                         action:@selector(handleRotationGesture:)];
+    self.rotationRecognizer.delegate = self;
+    [self addGestureRecognizer:self.rotationRecognizer];
 }
 
 //handle Pan
-- (void)handlePanGesture:(RotationGestureRecognizer *)recognizer {
+- (void)handleRotationGesture:(RotationGestureRecognizer *)recognizer {
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan:
             [self stopAnimations];
@@ -127,6 +133,8 @@
     NSUInteger index = [self.grid indexForCellWithPoint:point
                                                  withOffset:self.cellsOffset];
     [self.cells[index] tapped];
+
+    [self bounceCells];
 }
 
 - (void)stopAnimations {
@@ -164,6 +172,7 @@
     for (Cell *cell in cells) {
         [self addSubview:cell];
     }
+    [self stopAnimations];
     self.cellsOffset = 0.f;
 }
 
@@ -188,9 +197,26 @@
 #pragma mark - <POPAnimationDelegate>
 
 - (void)pop_animationDidStop:(POPAnimation *)popAnimation finished:(BOOL)finished {
-    if ([popAnimation.name isEqualToString:self.rotator.decayAnimationName] && finished) {
+    if ([popAnimation.name isEqualToString:self.rotator.decayAnimationName] && finished ) {
         [self bounceCells];
     }
+}
+
+#pragma mark - <UIGestureRecognizerDelegate>
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    if ([gestureRecognizer isEqual:self.longPressRecognizer]) {
+        BOOL isDecayActive = [self.rotator isDecayAnimationActiveOnGrid:self];
+        BOOL isBounceActive = [self.rotator isBounceAnimationActiveOnGrid:self];
+        return !isDecayActive && !isBounceActive;
+    }
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+        shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+
+    return NO;
 }
 
 @end

@@ -61,11 +61,11 @@
 }
 
 - (BOOL)isDecayAnimationActiveOnGrid:(Grid *)grid {
-    return [grid pop_animationForKey:self.decayAnimationName] != nil;
+    return [grid pop_animationForKey:@"decelerate"] != nil;
 }
 
 - (BOOL)isBounceAnimationActiveOnGrid:(Grid *)grid {
-    return [grid pop_animationForKey:self.bounceAnimationName] != nil;
+    return [grid pop_animationForKey:@"bounce"] != nil;
 }
 
 
@@ -92,7 +92,7 @@
     CGRect frame = CGRectZero;
 
     frame.size = [grid cellSize];
-    CGPoint center = [grid centerPointForIndex:index];
+    CGPoint center = [grid centerOfCellWithIndex:index];
     if (index != 8) {
         [grid moveCellCenter:&center byAngle:offset];
     }
