@@ -10,7 +10,7 @@
 @interface GridHelper ()
 
 @property(assign, nonatomic, readonly) CGRect rails;
-@property(assign, nonatomic, readonly) CGFloat railsHeightToWidthRelation;
+@property(assign, nonatomic, readonly) CGFloat railsHeightToWidthRatio;
 @property(strong, nonatomic) NSArray *cellFrames;
 
 @end
@@ -27,7 +27,7 @@
     [self calculateCellsFrames];
 
     [self setRails];
-    [self setRailsHeightToWidthRelation];
+    [self setRailsHeightToWidthRatio];
 }
 
 - (void)calculateCellsFrames {
@@ -99,12 +99,12 @@
     _rails = CGRectMake(railXMin, railXMin, railXMax - railXMin, railXMax - railXMin);
 }
 
--(void) setRailsHeightToWidthRelation {
+-(void)setRailsHeightToWidthRatio {
     CGFloat railYMin = [self centerOfCellWithIndex:2].y;
     CGFloat railYMax = [self centerOfCellWithIndex:4].y;
     CGFloat railXMin = [self centerOfCellWithIndex:0].x;
     CGFloat railXMax = [self centerOfCellWithIndex:2].x;
-    _railsHeightToWidthRelation = (railYMax - railYMin) / (railXMax - railXMin);
+    _railsHeightToWidthRatio = (railYMax - railYMin) / (railXMax - railXMin);
 }
 
 - (CGPoint)centerOfCellWithIndex:(NSUInteger)index {
@@ -124,11 +124,11 @@
 
     p.x = p.x - self.horizontalInset - self.cellSize.width / 2;
     p.y = p.y - self.verticalInset - self.cellSize.height / 2;
-    p.y *= 1 / self.railsHeightToWidthRelation;
+    p.y *= 1 / self.railsHeightToWidthRatio;
 
     CGPoint rotated = [Geometry rotatedPointFromPoint:p byAngle:remain onFrame:f];
 
-    rotated.y *= self.railsHeightToWidthRelation;
+    rotated.y *= self.railsHeightToWidthRatio;
     rotated.x = rotated.x + self.horizontalInset + self.cellSize.width / 2;
     rotated.y = rotated.y + self.verticalInset + self.cellSize.height / 2;
 
