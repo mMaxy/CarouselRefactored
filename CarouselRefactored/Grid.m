@@ -142,9 +142,8 @@
     [self.rotator stopDecayAnimationOnGrid:self];
 }
 
--(void) setFrame:(CGRect)frame {
-    [super setFrame:frame];
-    [self.grid setFrame:frame];
+-(void)layoutSubviews {
+    [self.grid setFrame:self.frame];
 }
 
 - (void)placeCells {

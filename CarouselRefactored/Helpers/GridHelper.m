@@ -13,8 +13,6 @@
 @property(assign, nonatomic, readonly) CGFloat railsHeightToWidthRelation;
 @property(strong, nonatomic) NSArray *cellFrames;
 
-- (void)setSizes;
-
 @end
 
 @implementation GridHelper
@@ -22,16 +20,14 @@
 - (void)setFrame:(CGRect)rect {
     _frame = rect;
     _spaceBetweenCells = 5.f;
-    [self setSizes];
+    [self setCellSize];
+    [self setVerticalInset];
+    [self setHorizontalInset];
 
     [self calculateCellsFrames];
 
-    CGFloat railYMin = [self centerOfCellWithIndex:2].y;
-    CGFloat railYMax = [self centerOfCellWithIndex:4].y;
-    CGFloat railXMin = [self centerOfCellWithIndex:0].x;
-    CGFloat railXMax = [self centerOfCellWithIndex:2].x;
-    _rails = CGRectMake(railXMin, railXMin, railXMax - railXMin, railXMax - railXMin);
-    _railsHeightToWidthRelation = (railYMax - railYMin) / (railXMax - railXMin);
+    [self setRails];
+    [self setRailsHeightToWidthRelation];
 }
 
 - (void)calculateCellsFrames {
@@ -58,7 +54,7 @@
 
 #pragma mark - Private
 
-- (void)setSizes {
+- (void)setCellSize {
     CGFloat screenWidth = CGRectGetWidth(self.frame);
     CGFloat screenHeight = CGRectGetHeight(self.frame);
 
@@ -67,40 +63,48 @@
     CGFloat horizontalSpace = rowSpace * 4;
     CGFloat verticalSpace = lineSpace * 4;
 
-    CGFloat possibleWidth;
-    CGFloat possibleHeight;
-    CGFloat totalHeight;
-    CGFloat totalWidth;
-
-    CGFloat hi = 0.f;
-    CGFloat vi = 0.f;
+    CGFloat width;
+    CGFloat height;
     CGSize size = CGSizeZero;
 
     if (!(screenHeight == 0.f || screenWidth == 0.f)) {
         if (screenWidth > screenHeight) {
             // Calculate width and height if additional space on left and right
-            possibleHeight = (screenHeight - verticalSpace) / 3;
-            possibleWidth = possibleHeight * 3 / 4;
-            totalWidth = possibleWidth * 3 + horizontalSpace;
+            height = (screenHeight - verticalSpace) / 3;
+            width = height * 3 / 4;
 
-            vi = rowSpace;
-            hi = (screenWidth + 2 * lineSpace - totalWidth) / 2;
-            size = CGSizeMake(possibleWidth, possibleHeight);
+            size = CGSizeMake(width, height);
         } else {
             // Calculate width and height if additional space on top and bottom
-            possibleWidth = (screenWidth - horizontalSpace) / 3;
-            possibleHeight = possibleWidth * 4 / 3;
-            totalHeight = possibleHeight * 3 + verticalSpace;
+            width = (screenWidth - horizontalSpace) / 3;
+            height = width * 4 / 3;
 
-            hi = lineSpace;
-            vi = (screenHeight + 2 * rowSpace - totalHeight) / 2;
-            size = CGSizeMake(possibleWidth, possibleHeight);
+            size = CGSizeMake(width, height);
         }
     }
-
     _cellSize = size;
-    _verticalInset = vi;
-    _horizontalInset = hi;
+}
+
+- (void)setHorizontalInset {
+    _horizontalInset = (self.frame.size.width - 3*self.cellSize.width - 2*self.spaceBetweenCells)/2;
+}
+
+- (void)setVerticalInset {
+    _verticalInset = (self.frame.size.height - 3*self.cellSize.height - 2*self.spaceBetweenCells)/2;
+}
+
+-(void) setRails {
+    CGFloat railXMin = [self centerOfCellWithIndex:0].x;
+    CGFloat railXMax = [self centerOfCellWithIndex:2].x;
+    _rails = CGRectMake(railXMin, railXMin, railXMax - railXMin, railXMax - railXMin);
+}
+
+-(void) setRailsHeightToWidthRelation {
+    CGFloat railYMin = [self centerOfCellWithIndex:2].y;
+    CGFloat railYMax = [self centerOfCellWithIndex:4].y;
+    CGFloat railXMin = [self centerOfCellWithIndex:0].x;
+    CGFloat railXMax = [self centerOfCellWithIndex:2].x;
+    _railsHeightToWidthRelation = (railYMax - railYMin) / (railXMax - railXMin);
 }
 
 - (CGPoint)centerOfCellWithIndex:(NSUInteger)index {
