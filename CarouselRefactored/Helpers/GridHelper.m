@@ -145,6 +145,16 @@
 
     CGPoint pointWithoutOffset = [Geometry rotatedPointFromPoint:point byAngle:(-offset) onFrame:self.frame];
 
+    pointWithoutOffset.x -= self.frame.size.width/2;
+    pointWithoutOffset.y -= self.frame.size.height/2;
+
+    CGPoint newPoint = CGPointMake(point.x-self.frame.size.width/2, point.y-self.frame.size.height/2);
+    pointWithoutOffset.x *= fabsf((newPoint.x)/(self.frame.size.width/2.5f));
+    pointWithoutOffset.y *= fabsf((newPoint.y)/(self.frame.size.height/2.5f));
+
+    pointWithoutOffset.x += self.frame.size.width/2;
+    pointWithoutOffset.y += self.frame.size.height/2;
+
     index = [self indexWithPoint:pointWithoutOffset];
     return index;
 }

@@ -10,7 +10,7 @@
 
 }
 - (void)tapped {
-    NSLog(@"Tapped");
+    NSLog(@"Tapped, %i", self.tag);
 }
 
 - (void)longTapStarted {

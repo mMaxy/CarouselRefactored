@@ -28,6 +28,7 @@
         } else {
             [cell setBackgroundColor:[UIColor redColor]];
         }
+        cell.tag = i;
         [cells addObject:cell];
     }
     [self.carousel setCells:cells];
