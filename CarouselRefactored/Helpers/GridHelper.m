@@ -43,7 +43,8 @@
         }
     }
     NSMutableArray *res = [cellsFrames mutableCopy];
-    NSArray *transform = @[@(0), @(1), @(2), @(5), @(8), @(7), @(6), @(3), @(4)];;
+    NSArray *transform;
+    transform = [self cellMatrix];
     for (int index = 0; index < 9; index++) {
         res[index] = cellsFrames[[transform[index] unsignedIntegerValue]];
     }
@@ -51,6 +52,12 @@
 }
 
 #pragma mark - Private
+
+- (NSArray *)cellMatrix {
+    NSArray *transform;
+    transform = @[@(0), @(1), @(2), @(5), @(8), @(7), @(6), @(3), @(4)];
+    return transform;
+}
 
 - (void)setCellSize {
     CGFloat screenWidth = CGRectGetWidth(self.frame);
