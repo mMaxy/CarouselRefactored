@@ -22,7 +22,7 @@
 
 - (CGFloat)currentAngleInView:(UIView *)view {
     CGPoint point = [self locationInView:view];
-    CGFloat res = [Geometry angleFromPoint:point onFrame:view.frame];;
+    CGFloat res = [Geometry angleFromPoint:point onFrame:view.frame];
     return res;
 }
 

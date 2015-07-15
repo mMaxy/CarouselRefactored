@@ -15,7 +15,7 @@
 @property(nonatomic) CGFloat startOffset;
 
 @property (strong, nonatomic) RotationGestureRecognizer *rotationRecognizer;
-@property (strong, nonatomic) UITapGestureRecognizer *tapRecognizer;
+@property (strong, nonatomic) UILongPressGestureRecognizer *tapRecognizer;
 @property (strong, nonatomic) UILongPressGestureRecognizer *longPressRecognizer;
 
 @end
@@ -51,8 +51,12 @@
 }
 
 - (void)setupTouches {
+    self.rotationRecognizer = [[RotationGestureRecognizer alloc] initWithTarget:self
+                                                                         action:@selector(handleRotationGesture:)];
+    self.rotationRecognizer.delegate = self;
 
-    self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+    self.tapRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+    [self.tapRecognizer setMinimumPressDuration:0.0001];
     self.tapRecognizer.delegate = self;
     [self addGestureRecognizer:self.tapRecognizer];
 
@@ -62,9 +66,6 @@
 
     [self addGestureRecognizer:self.longPressRecognizer];
 
-    self.rotationRecognizer = [[RotationGestureRecognizer alloc] initWithTarget:self
-                                                                         action:@selector(handleRotationGesture:)];
-    self.rotationRecognizer.delegate = self;
     [self addGestureRecognizer:self.rotationRecognizer];
 }
 
@@ -77,7 +78,10 @@
         case UIGestureRecognizerStateChanged: {
             CGPoint point = [recognizer locationInView:self];
 
-            double deltaAngle = [recognizer currentAngleInView:self] - [recognizer startAngleInView:self];
+            CGFloat currentAngle = [recognizer currentAngleInView:self];
+            CGFloat startAngle = [recognizer startAngleInView:self];
+            NSLog(@"Start angle: %f, End Angle: %f, delta: %f", startAngle, currentAngle, currentAngle-startAngle);
+            CGFloat deltaAngle = (CGFloat)((CGFloat)currentAngle - (CGFloat)startAngle);
 
             NSUInteger indexPath = [self.grid indexWithPoint:point];
             if (indexPath == 0) {
@@ -102,6 +106,7 @@
 - (void)handleLongPressGesture:(UILongPressGestureRecognizer *)recognizer {
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan: {
+            [self.tapRecognizer setEnabled:NO];
             CGPoint point = [recognizer locationInView:self];
             NSUInteger index = [self.grid indexForCellWithPoint:point
                                                      withOffset:self.cellsOffset];
@@ -110,6 +115,7 @@
             break;
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateEnded: {
+            [self.tapRecognizer setEnabled:YES];
             CGPoint point = [recognizer locationInView:self];
             NSUInteger index = [self.grid indexForCellWithPoint:point
                                                      withOffset:self.cellsOffset];
@@ -125,16 +131,30 @@
 
 //Handle tap
 - (void)handleTapGesture:(UITapGestureRecognizer *)recognizer {
-    //stop animation
-    [self stopAnimations];
+    switch (recognizer.state) {
+        case UIGestureRecognizerStateBegan: { //touch down
+            //stop animation
+            [self stopAnimations];
+        }
+            break;
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateEnded: { //touch up
+            //call delegate to tell him, that view were tapped
+            CGPoint point = [recognizer locationInView:self];
+            NSUInteger index = [self.grid indexForCellWithPoint:point
+                                                     withOffset:self.cellsOffset];
+            [self.cells[index] tapped];
 
-    //call delegate to tell him, that view were tapped
-    CGPoint point = [recognizer locationInView:self];
-    NSUInteger index = [self.grid indexForCellWithPoint:point
-                                                 withOffset:self.cellsOffset];
-    [self.cells[index] tapped];
+            if (![self.rotator isDecayAnimationActiveOnGrid:self]) {
+                [self bounceCells];
+            }
 
-    [self bounceCells];
+        }
+            break;
+
+        default:
+            break;
+    }
 }
 
 - (void)stopAnimations {
@@ -151,6 +171,7 @@
 }
 
 - (void)bounceCells {
+    self.cellsOffset = self.cellsOffset;
     CGFloat angle = [Geometry nearestFixedPositionFrom:self.cellsOffset];
     [self.rotator bounceAnimationToAngle:angle onCarouselView:self];
 }
@@ -197,7 +218,11 @@
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
         shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
 
-    return NO;
+    if (gestureRecognizer == self.longPressRecognizer && otherGestureRecognizer == self.rotationRecognizer) {
+        return NO;
+    } else {
+        return !(gestureRecognizer == self.rotationRecognizer && otherGestureRecognizer == self.longPressRecognizer);
+    }
 }
 
 @end
