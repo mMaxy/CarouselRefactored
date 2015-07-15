@@ -20,6 +20,9 @@ _ответсвенность:_
 */
 @interface Rotator : NSObject
 
+@property(assign, nonatomic, readonly) CGFloat decelerationValue;
+@property(assign, nonatomic, readonly) CGFloat velocityOfBounce;
+
 /**
 * rotating cells. For each cell recalculates frame and setting that frame to cell
 *  @param cells Array of cells to spin

@@ -12,9 +12,6 @@
 
 @interface Rotator ()
 
-@property(assign, nonatomic, readonly) CGFloat decelerationValue;
-@property(assign, nonatomic, readonly) CGFloat velocityOfBounce;
-
 /**
 * returns frame for cell after applying offset
 */

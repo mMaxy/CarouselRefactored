@@ -202,7 +202,29 @@
 
 - (void)pop_animationDidStop:(POPAnimation *)popAnimation finished:(BOOL)finished {
     if ([popAnimation.name isEqualToString:self.rotator.decayAnimationName] && finished ) {
-        [self bounceCells];
+//        [self bounceCells];
+    }
+}
+
+- (void)pop_animationDidApply:(POPAnimation *)anim {
+    CGFloat velocity = [((POPDecayAnimation *) anim).velocity floatValue];
+    if (fabsf(velocity) < self.rotator.velocityOfBounce*2.f) {
+        CGFloat angle = [((POPDecayAnimation *) anim).toValue floatValue];
+
+        while (angle > self.maxCellsOffset) {
+            angle -= self.maxCellsOffset;
+        }
+        while (angle < 0) {
+            angle += self.maxCellsOffset;
+        }
+
+        if (angle - self.cellsOffset < M_PI_4) {
+            [self stopAnimations];
+
+            angle = [Geometry nearestFixedPositionFrom:angle];
+
+            [self.rotator bounceAnimationToAngle:angle onCarouselView:self];
+        }
     }
 }
 
