@@ -32,7 +32,7 @@
     }
 }
 
-- (void)decayAnimationWithVelosity:(CGFloat)velocity onCarouselView:(Grid *)carouselView {
+- (void)decayAnimationWithVelocity:(CGFloat)velocity onCarouselView:(Grid *)carouselView {
     CGFloat angleVelocity = velocity;
 
     POPDecayAnimation *decayAnimation = [POPDecayAnimation animation];

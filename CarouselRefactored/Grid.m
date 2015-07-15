@@ -88,7 +88,7 @@
             break;
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateEnded: {
-            [self.rotator decayAnimationWithVelosity:[recognizer angleVelocityInView:self] onCarouselView:self];
+            [self.rotator decayAnimationWithVelocity:[recognizer angleVelocityInView:self] onCarouselView:self];
         }
             break;
         default: {

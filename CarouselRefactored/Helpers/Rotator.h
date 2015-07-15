@@ -33,7 +33,7 @@ _ответсвенность:_
 * @param velocity Initial angle velocity, with which animation will start
 * @param grid Grid to animate
 */
-- (void)decayAnimationWithVelosity:(CGFloat)velocity onCarouselView:(Grid *)carouselView;
+- (void)decayAnimationWithVelocity:(CGFloat)velocity onCarouselView:(Grid *)carouselView;
 
 /**
 * decay animation name
