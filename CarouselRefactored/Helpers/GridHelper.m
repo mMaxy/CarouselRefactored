@@ -143,17 +143,8 @@
 - (NSUInteger)indexForCellWithPoint:(CGPoint)point withOffset:(CGFloat)offset {
     NSUInteger index = 0;
 
-    CGPoint pointWithoutOffset = [Geometry rotatedPointFromPoint:point byAngle:(-offset) onFrame:self.frame];
-
-    pointWithoutOffset.x -= self.frame.size.width/2;
-    pointWithoutOffset.y -= self.frame.size.height/2;
-
-    CGPoint newPoint = CGPointMake(point.x-self.frame.size.width/2, point.y-self.frame.size.height/2);
-    pointWithoutOffset.x *= fabsf((newPoint.x)/(self.frame.size.width/2.5f));
-    pointWithoutOffset.y *= fabsf((newPoint.y)/(self.frame.size.height/2.5f));
-
-    pointWithoutOffset.x += self.frame.size.width/2;
-    pointWithoutOffset.y += self.frame.size.height/2;
+    CGPoint pointWithoutOffset = point;
+    [self moveCellCenter:&pointWithoutOffset byAngle:(-offset)];
 
     index = [self indexWithPoint:pointWithoutOffset];
     return index;
