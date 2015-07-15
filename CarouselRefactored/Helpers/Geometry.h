@@ -55,4 +55,5 @@ typedef NS_ENUM(NSInteger, SpinDirection) {
 */
 + (CGFloat)nearestFixedPositionFrom:(CGFloat)currentPosition;
 
++ (CGFloat)nextFixedPositionFrom:(CGFloat)currentPosition withDirection:(SpinDirection)direction;
 @end

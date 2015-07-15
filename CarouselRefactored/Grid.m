@@ -136,8 +136,7 @@
         case UIGestureRecognizerStateBegan: { //touch down
             //stop animation
             [self stopAnimations];
-        }
-            break;
+        } break;
         case UIGestureRecognizerStateCancelled:
             break;
         case UIGestureRecognizerStateEnded: { //touch up
@@ -151,9 +150,7 @@
                 [self bounceCells];
             }
 
-        }
-            break;
-
+        } break;
         default:
             break;
     }
@@ -180,10 +177,10 @@
 
 - (void)setCellsOffset:(CGFloat)cellsOffset {
     _cellsOffset = cellsOffset;
-    if (_cellsOffset > _maxCellsOffset) {
+    while (_cellsOffset > _maxCellsOffset) {
         _cellsOffset -= _maxCellsOffset;
     }
-    if (_cellsOffset < 0) {
+    while (_cellsOffset < 0) {
         _cellsOffset += _maxCellsOffset;
     }
     [self placeCells];
@@ -200,15 +197,9 @@
 
 #pragma mark - <POPAnimationDelegate>
 
-- (void)pop_animationDidStop:(POPAnimation *)popAnimation finished:(BOOL)finished {
-    if ([popAnimation.name isEqualToString:self.rotator.decayAnimationName] && finished ) {
-//        [self bounceCells];
-    }
-}
-
 - (void)pop_animationDidApply:(POPAnimation *)anim {
     CGFloat velocity = [((POPDecayAnimation *) anim).velocity floatValue];
-    if (fabsf(velocity) < self.rotator.velocityOfBounce*2.f) {
+    if (fabsf(velocity) < self.rotator.velocityOfBounce * 2) {
         CGFloat angle = [((POPDecayAnimation *) anim).toValue floatValue];
 
         while (angle > self.maxCellsOffset) {
@@ -221,7 +212,7 @@
         if (angle - self.cellsOffset < M_PI_4) {
             [self stopAnimations];
 
-            angle = [Geometry nearestFixedPositionFrom:angle];
+            angle = [Geometry nextFixedPositionFrom:angle withDirection:velocity > 0 ? SpinCounterClockwise : SpinClockwise];
 
             [self.rotator bounceAnimationToAngle:angle onCarouselView:self];
         }

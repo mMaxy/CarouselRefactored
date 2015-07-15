@@ -184,6 +184,36 @@
     return moveToAngle;
 }
 
++ (CGFloat)nextFixedPositionFrom:(CGFloat)currentPosition withDirection:(SpinDirection) direction{
+    CGFloat moveToAngle = currentPosition;
+
+    while (currentPosition > (CGFloat)(2*M_PI)) {
+        currentPosition -= (CGFloat)(2*M_PI);
+    }
+    while (currentPosition < 0) {
+        currentPosition += (CGFloat)(2*M_PI);
+    }
+
+    if (currentPosition < M_PI_4 && currentPosition >= 0) {
+        moveToAngle = direction == SpinClockwise ? 0.f : (CGFloat) M_PI_4;
+    } else if (currentPosition < M_PI_2 && currentPosition >= M_PI_4) {
+        moveToAngle = direction == SpinClockwise ? (CGFloat) M_PI_4 : (CGFloat) M_PI_2;
+    } else if (currentPosition < 3 * M_PI_4 && currentPosition >= M_PI_2) {
+        moveToAngle = direction == SpinClockwise ? (CGFloat) M_PI_2 : (CGFloat) (3 * M_PI_4);
+    } else if (currentPosition < M_PI && currentPosition >= 3 * M_PI_4) {
+        moveToAngle = direction == SpinClockwise ?(CGFloat) (3 * M_PI_4) : (CGFloat) M_PI;
+    } else if (currentPosition < 5 * M_PI_4 && currentPosition >= M_PI) {
+        moveToAngle = direction == SpinClockwise ?(CGFloat) M_PI : (CGFloat)(5*M_PI_4);
+    } else if (currentPosition < 3 * M_PI_2 && currentPosition >= 5 * M_PI_4) {
+        moveToAngle = direction == SpinClockwise ?(CGFloat) (5 * M_PI_4) : (CGFloat) (3 * M_PI_2);
+    } else if (currentPosition < 7 * M_PI_4 && currentPosition >= 3 * M_PI_2) {
+        moveToAngle = direction == SpinClockwise ?(CGFloat) (3 * M_PI_2) : (CGFloat)(7 * M_PI_4);
+    } else if (currentPosition < 2 * M_PI && currentPosition >= 7 * M_PI_4) {
+        moveToAngle = direction == SpinClockwise ? (CGFloat) (7 * M_PI_4) : (CGFloat)(2 * M_PI);
+    }
+    return moveToAngle;
+}
+
 #pragma mark - Private
 
 + (BOOL)increaseQuarterOfPoint:(CGPoint *)point inFrame:(CGRect *)frame {
