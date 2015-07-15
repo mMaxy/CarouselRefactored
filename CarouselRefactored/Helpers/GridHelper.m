@@ -143,6 +143,16 @@
 - (NSUInteger)indexForCellWithPoint:(CGPoint)point withOffset:(CGFloat)offset {
     NSUInteger index = 0;
 
+
+    if (point.x < self.horizontalInset + 2 * self.cellSize.width + self.spaceBetweenCells ) {
+        if (point.x > self.horizontalInset + self.cellSize.width + self.spaceBetweenCells ) {
+            if (point.y < self.verticalInset + 2 * self.cellSize.height + self.spaceBetweenCells ) {
+                if (point.y > self.verticalInset + self.cellSize.height + self.spaceBetweenCells ) {
+                    return 8;
+                }
+            }
+        }
+    }
     CGPoint pointWithoutOffset = point;
     [self moveCellCenter:&pointWithoutOffset byAngle:(-offset)];
 
