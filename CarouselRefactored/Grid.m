@@ -80,11 +80,9 @@
 
             CGFloat currentAngle = [recognizer currentAngleInView:self];
             CGFloat startAngle = [recognizer startAngleInView:self];
-            NSLog(@"Start angle: %f, End Angle: %f, delta: %f", startAngle, currentAngle, currentAngle-startAngle);
             CGFloat deltaAngle = (CGFloat)((CGFloat)currentAngle - (CGFloat)startAngle);
-
             NSUInteger indexPath = [self.grid indexWithPoint:point];
-            if (indexPath == 0) {
+            if (indexPath == 8) {
                 return;
             }
             self.cellsOffset = self.startOffset + (CGFloat) (deltaAngle);
@@ -121,6 +119,9 @@
                                                      withOffset:self.cellsOffset];
 
             [self.cells[index] longTapEnded];
+            if (![self.rotator isDecayAnimationActiveOnGrid:self]) {
+                [self bounceCells];
+            }
         }
             break;
 
@@ -138,6 +139,7 @@
         }
             break;
         case UIGestureRecognizerStateCancelled:
+            break;
         case UIGestureRecognizerStateEnded: { //touch up
             //call delegate to tell him, that view were tapped
             CGPoint point = [recognizer locationInView:self];
