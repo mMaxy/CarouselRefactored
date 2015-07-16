@@ -4,6 +4,7 @@
 //
 
 #import "Geometry.h"
+#import "Grid.h"
 
 
 @implementation Geometry
@@ -254,6 +255,16 @@
     *angle -= M_PI_2;
     *frame = CGRectMake(0.f, 0.f, (*frame).size.height, (*frame).size.width);
     return YES;
+}
+
++ (CGFloat)normalizedAngle:(CGFloat)angle onGrid:(Grid *)grid {
+    while (angle > grid.maxCellsOffset) {
+        angle -= grid.maxCellsOffset;
+    }
+    while (angle < 0) {
+        angle += grid.maxCellsOffset;
+    }
+    return angle;
 }
 
 @end

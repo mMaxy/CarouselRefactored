@@ -73,7 +73,7 @@
 - (void)handleRotationGesture:(RotationGestureRecognizer *)recognizer {
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan:
-            [self stopAnimations];
+            [self.rotator stopAnimationsOnGrid:self];
             self.startOffset = self.cellsOffset;
         case UIGestureRecognizerStateChanged: {
             CGPoint point = [recognizer locationInView:self];
@@ -135,7 +135,7 @@
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan: { //touch down
             //stop animation
-            [self stopAnimations];
+            [self.rotator stopAnimationsOnGrid:self];
         } break;
         case UIGestureRecognizerStateCancelled:
             break;
@@ -154,11 +154,6 @@
         default:
             break;
     }
-}
-
-- (void)stopAnimations {
-    [self.rotator stopBounceAnimationOnGrid:self];
-    [self.rotator stopDecayAnimationOnGrid:self];
 }
 
 -(void)layoutSubviews {
@@ -191,32 +186,14 @@
     for (Cell *cell in cells) {
         [self addSubview:cell];
     }
-    [self stopAnimations];
+    [self.rotator stopAnimationsOnGrid:self];
     self.cellsOffset = 0.f;
 }
 
 #pragma mark - <POPAnimationDelegate>
 
 - (void)pop_animationDidApply:(POPAnimation *)anim {
-    CGFloat velocity = [((POPDecayAnimation *) anim).velocity floatValue];
-    if (fabsf(velocity) < self.rotator.velocityOfBounce * 2) {
-        CGFloat angle = [((POPDecayAnimation *) anim).toValue floatValue];
-
-        while (angle > self.maxCellsOffset) {
-            angle -= self.maxCellsOffset;
-        }
-        while (angle < 0) {
-            angle += self.maxCellsOffset;
-        }
-
-        if (angle - self.cellsOffset < M_PI_4) {
-            [self stopAnimations];
-
-            angle = [Geometry nextFixedPositionFrom:angle withDirection:velocity > 0 ? SpinCounterClockwise : SpinClockwise];
-
-            [self.rotator bounceAnimationToAngle:angle onCarouselView:self];
-        }
-    }
+    [self.rotator stopDecayAnimationIfNeeded:anim onGrid:self];
 }
 
 #pragma mark - <UIGestureRecognizerDelegate>

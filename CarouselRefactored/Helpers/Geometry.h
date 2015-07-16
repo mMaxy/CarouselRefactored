@@ -6,6 +6,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+@class Grid;
+
 typedef NS_ENUM(NSInteger, SpinDirection) {
     SpinNone = 0,
     SpinClockwise,
@@ -56,4 +58,9 @@ typedef NS_ENUM(NSInteger, SpinDirection) {
 + (CGFloat)nearestFixedPositionFrom:(CGFloat)currentPosition;
 
 + (CGFloat)nextFixedPositionFrom:(CGFloat)currentPosition withDirection:(SpinDirection)direction;
+
+/**
+* get angle between 0. and grid.maxCellsOffset
+*/
++ (CGFloat)normalizedAngle:(CGFloat)angle onGrid:(Grid *)grid;
 @end

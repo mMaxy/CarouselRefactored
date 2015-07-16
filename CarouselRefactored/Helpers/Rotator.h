@@ -36,7 +36,7 @@ _ответсвенность:_
 * @param velocity Initial angle velocity, with which animation will start
 * @param grid Grid to animate
 */
-- (void)decayAnimationWithVelocity:(CGFloat)velocity onCarouselView:(Grid *)carouselView;
+- (void)decayAnimationWithVelocity:(CGFloat)velocity onCarouselView:(Grid *)grid;
 
 /**
 * decay animation name
@@ -53,7 +53,22 @@ _ответсвенность:_
 * @param angle Angle to which bounce should be performed
 * @param grid Grid to animate
 */
-- (void)bounceAnimationToAngle:(CGFloat)angle onCarouselView:(Grid *)carouselView;
+- (void)bounceAnimationToAngle:(CGFloat)angle onCarouselView:(Grid *)grid;
+
+/**
+* animate bounce on view with speed
+* @param angle Angle to which bounce should be performed
+* @param grid Grid to animate
+* @param velocity Velocity to bounce
+*/
+- (void)bounceAnimationToAngle:(CGFloat)angle onCarouselView:(Grid *)grid withVelocity:(CGFloat)velocity;
+
+/**
+* Deciding whether it is necessary to stop decay animation and stopping it
+* @param anim Animation that needs to be checked
+* @param grid Grid that is animated
+*/
+- (void)stopDecayAnimationIfNeeded:(POPAnimation *)anim onGrid:(Grid *)grid;
 
 /**
 * stopping decay animation
@@ -66,6 +81,12 @@ _ответсвенность:_
 * @param grid Grid view on which animation should be stopped
 */
 - (void)stopBounceAnimationOnGrid:(Grid *)grid;
+
+/**
+* Stop all animations on grid
+* @param grid Grid to be un animated
+*/
+- (void)stopAnimationsOnGrid:(Grid *)grid;
 
 /**
 * check is decay animation active on carousel view

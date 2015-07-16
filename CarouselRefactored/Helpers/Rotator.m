@@ -8,6 +8,7 @@
 #import "Rotator.h"
 #import "Grid.h"
 #import "GridHelper.h"
+#import "Geometry.h"
 
 
 @interface Rotator ()
@@ -29,7 +30,7 @@
     }
 }
 
-- (void)decayAnimationWithVelocity:(CGFloat)velocity onCarouselView:(Grid *)carouselView {
+- (void)decayAnimationWithVelocity:(CGFloat)velocity onCarouselView:(Grid *)grid {
     CGFloat angleVelocity = velocity;
 
     POPDecayAnimation *decayAnimation = [POPDecayAnimation animation];
@@ -37,16 +38,38 @@
     decayAnimation.velocity = @(angleVelocity);
     decayAnimation.deceleration = self.decelerationValue;
     decayAnimation.name = self.decayAnimationName;
-    decayAnimation.delegate = carouselView;
-    [carouselView pop_addAnimation:decayAnimation forKey:self.decayAnimationName];
+    decayAnimation.delegate = grid;
+    [grid pop_addAnimation:decayAnimation forKey:self.decayAnimationName];
 }
 
-- (void)bounceAnimationToAngle:(CGFloat)angle onCarouselView:(Grid *)carouselView {
+- (void)bounceAnimationToAngle:(CGFloat)angle onCarouselView:(Grid *)grid {
+    [self bounceAnimationToAngle:angle onCarouselView:grid withVelocity:self.velocityOfBounce];
+}
+
+- (void)bounceAnimationToAngle:(CGFloat)angle onCarouselView:(Grid *)grid withVelocity:(CGFloat)velocity{
     POPSpringAnimation *springAnimation = [POPSpringAnimation animation];
     springAnimation.property = [self animatableProperty];
-    springAnimation.velocity = @(self.velocityOfBounce);
+    springAnimation.velocity = @(velocity);
     springAnimation.toValue = @(angle);
-    [carouselView pop_addAnimation:springAnimation forKey:self.bounceAnimationName];
+    [grid pop_addAnimation:springAnimation forKey:self.bounceAnimationName];
+}
+
+- (void)stopDecayAnimationIfNeeded:(POPAnimation *)anim onGrid:(Grid *)grid {
+    if ([[anim class] isSubclassOfClass:[POPDecayAnimation class]]) {
+        CGFloat velocity = [((POPDecayAnimation *) anim).velocity floatValue];
+        if (fabsf(velocity) < grid.rotator.velocityOfBounce * 7.5f) {
+            CGFloat angle = [((POPDecayAnimation *) anim).toValue floatValue];
+            angle = [Geometry normalizedAngle:angle onGrid:grid];
+            if (angle - grid.cellsOffset < M_PI_4) {
+                angle = [Geometry nextFixedPositionFrom:angle withDirection:velocity > 0 ? SpinClockwise : SpinCounterClockwise];
+
+                if (angle >= grid.cellsOffset -0.09f || angle <= grid.cellsOffset +0.09f) {
+                    [self stopAnimationsOnGrid:grid];
+                    [grid.rotator bounceAnimationToAngle:angle onCarouselView:grid withVelocity:velocity];
+                }
+            }
+        }
+    }
 }
 
 - (void)stopDecayAnimationOnGrid:(Grid *)grid {
@@ -55,6 +78,11 @@
 
 - (void)stopBounceAnimationOnGrid:(Grid *)grid {
     [grid pop_removeAnimationForKey:self.bounceAnimationName];
+}
+
+- (void)stopAnimationsOnGrid:(Grid *) grid {
+    [self stopBounceAnimationOnGrid:grid];
+    [self stopDecayAnimationOnGrid:grid];
 }
 
 - (BOOL)isDecayAnimationActiveOnGrid:(Grid *)grid {
