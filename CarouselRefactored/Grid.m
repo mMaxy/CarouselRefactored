@@ -18,6 +18,7 @@
 @property (strong, nonatomic) UILongPressGestureRecognizer *tapRecognizer;
 @property (strong, nonatomic) UILongPressGestureRecognizer *longPressRecognizer;
 
+@property(nonatomic) BOOL touchedWhileAnimation;
 @end
 
 @implementation Grid
@@ -73,6 +74,7 @@
 - (void)handleRotationGesture:(RotationGestureRecognizer *)recognizer {
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan:
+            [self.tapRecognizer setEnabled:NO];
             [self.rotator stopAnimationsOnGrid:self];
             self.startOffset = self.cellsOffset;
         case UIGestureRecognizerStateChanged: {
@@ -90,6 +92,7 @@
             break;
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateEnded: {
+            [self.tapRecognizer setEnabled:YES];
             [self.rotator decayAnimationWithVelocity:[recognizer angleVelocityInView:self] onCarouselView:self];
         }
             break;
@@ -131,10 +134,13 @@
 }
 
 //Handle tap
-- (void)handleTapGesture:(UITapGestureRecognizer *)recognizer {
+- (void)handleTapGesture:(UIGestureRecognizer *)recognizer {
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan: { //touch down
             //stop animation
+            if ([self.rotator isDecayAnimationActiveOnGrid:self]) {
+                self.touchedWhileAnimation = YES;
+            }
             [self.rotator stopAnimationsOnGrid:self];
         } break;
         case UIGestureRecognizerStateCancelled:
@@ -142,13 +148,17 @@
         case UIGestureRecognizerStateEnded: { //touch up
             //call delegate to tell him, that view were tapped
             CGPoint point = [recognizer locationInView:self];
-            NSUInteger index = [self.grid indexForCellWithPoint:point
-                                                     withOffset:self.cellsOffset];
-            [self.cells[index] tapped];
+            if (!self.touchedWhileAnimation) {
+                NSUInteger index = [self.grid indexForCellWithPoint:point
+                                                         withOffset:self.cellsOffset];
+                [self.cells[index] tapped];
+            }
 
             if (![self.rotator isDecayAnimationActiveOnGrid:self]) {
                 [self bounceCells];
             }
+
+            self.touchedWhileAnimation = NO;
 
         } break;
         default:
