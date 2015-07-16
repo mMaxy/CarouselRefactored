@@ -200,9 +200,8 @@
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     if ([gestureRecognizer isEqual:self.longPressRecognizer]) {
-        BOOL isDecayActive = [self.rotator isDecayAnimationActiveOnGrid:self];
-        BOOL isBounceActive = [self.rotator isBounceAnimationActiveOnGrid:self];
-        return !isDecayActive && !isBounceActive;
+        BOOL isCellsInPlace = fabs(self.cellsOffset - [Geometry nearestFixedPositionFrom:self.cellsOffset]) <= 0.001;
+        return  isCellsInPlace;
     }
     return YES;
 }
