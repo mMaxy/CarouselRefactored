@@ -7,8 +7,11 @@
 //
 
 #import "ViewController.h"
+#import "Grid.h"
+#import "Cell.h"
 
 @interface ViewController ()
+@property (strong, nonatomic) Grid *carousel;
 
 @end
 
@@ -16,6 +19,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.carousel = [[Grid alloc] initWithFrame:self.view.frame];
+    NSMutableArray *cells = [NSMutableArray new];
+    for (int i = 0; i < 9; i++) {
+        Cell *cell = [[Cell alloc] init];
+        if (i == 8) {
+            [cell setBackgroundColor:[UIColor blueColor]];
+        } else {
+            [cell setBackgroundColor:[UIColor redColor]];
+        }
+        cell.tag = i;
+        [cells addObject:cell];
+    }
+    [self.carousel setCells:cells];
+    [self.view addSubview:self.carousel];
     // Do any additional setup after loading the view, typically from a nib.
 }
 

@@ -9,4 +9,16 @@
 @implementation Cell {
 
 }
+- (void)tapped {
+    NSLog(@"Tapped, %i", self.tag);
+}
+
+- (void)longTapStarted {
+    NSLog(@"Long Tap Started");
+}
+
+- (void)longTapEnded {
+    NSLog(@"Long Tap Ended");
+}
+
 @end

@@ -4,7 +4,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
+@interface Cell : UIView
 
-@interface Cell : NSObject
+-(void) tapped;
+-(void) longTapStarted;
+-(void) longTapEnded;
+
 @end
